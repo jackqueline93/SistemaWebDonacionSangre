@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DonacionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="aviso">
+          <Key>
+            <PropertyRef Name="idAviso" />
+          </Key>
+          <Property Name="idAviso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuarioSolicitante" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idSangre" Type="int" Nullable="false" />
+          <Property Name="idRequerimiento" Type="int" Nullable="false" />
+          <Property Name="critico" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="cantidad" Type="decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="imagen" Type="image" />
+        </EntityType>
+        <EntityType Name="ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="departamento">
+          <Key>
+            <PropertyRef Name="idDepartamento" />
+          </Key>
+          <Property Name="idDepartamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="formulario">
+          <Key>
+            <PropertyRef Name="idFormulario" />
+          </Key>
+          <Property Name="idFormulario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pregunta1" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="pregunta2" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="pregunta3" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="pregunta4" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="perfil">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="postulacion">
+          <Key>
+            <PropertyRef Name="idPostulacion" />
+          </Key>
+          <Property Name="idPostulacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAviso" Type="int" Nullable="false" />
+          <Property Name="idUsuarioDonante" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="requerimiento">
+          <Key>
+            <PropertyRef Name="idRequerimiento" />
+          </Key>
+          <Property Name="idRequerimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipoSangre">
+          <Key>
+            <PropertyRef Name="idSangre" />
+          </Key>
+          <Property Name="idSangre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="idPerfil" Type="int" />
+          <Property Name="direccion" Type="varchar" MaxLength="200" />
+          <Property Name="apellido" Type="varchar" MaxLength="100" />
+          <Property Name="fecha_nacimiento" Type="date" />
+          <Property Name="genero" Type="varchar" MaxLength="10" />
+          <Property Name="dni" Type="varchar" MaxLength="8" />
+          <Property Name="celular" Type="int" />
+          <Property Name="idDepartamento" Type="int" />
+        </EntityType>
+        <EntityType Name="usuarioPerfil">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idPerfil" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_aviso_Requerimiento">
+          <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="1" />
+          <End Role="aviso" Type="Self.aviso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requerimiento">
+              <PropertyRef Name="idRequerimiento" />
+            </Principal>
+            <Dependent Role="aviso">
+              <PropertyRef Name="idRequerimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_aviso_tipo_sangre">
+          <End Role="tipoSangre" Type="Self.tipoSangre" Multiplicity="1" />
+          <End Role="aviso" Type="Self.aviso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoSangre">
+              <PropertyRef Name="idSangre" />
+            </Principal>
+            <Dependent Role="aviso">
+              <PropertyRef Name="idSangre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_aviso_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="aviso" Type="Self.aviso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="aviso">
+              <PropertyRef Name="idUsuarioSolicitante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_departamento_ciudad">
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="1" />
+          <End Role="departamento" Type="Self.departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="departamento">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_formulario_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="formulario" Type="Self.formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="formulario">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_postulacion_aviso1">
+          <End Role="aviso" Type="Self.aviso" Multiplicity="1" />
+          <End Role="postulacion" Type="Self.postulacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aviso">
+              <PropertyRef Name="idAviso" />
+            </Principal>
+            <Dependent Role="postulacion">
+              <PropertyRef Name="idAviso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_postulacion_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="postulacion" Type="Self.postulacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="postulacion">
+              <PropertyRef Name="idUsuarioDonante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_departamento">
+          <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departamento">
+              <PropertyRef Name="idDepartamento" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuarioPerfil_perfil1">
+          <End Role="perfil" Type="Self.perfil" Multiplicity="1" />
+          <End Role="usuarioPerfil" Type="Self.usuarioPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="perfil">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="usuarioPerfil">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuarioPerfil_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="usuarioPerfil" Type="Self.usuarioPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="usuarioPerfil">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DonacionModelStoreContainer">
+          <EntitySet Name="aviso" EntityType="Self.aviso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ciudad" EntityType="Self.ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="departamento" EntityType="Self.departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="formulario" EntityType="Self.formulario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="perfil" EntityType="Self.perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="postulacion" EntityType="Self.postulacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="requerimiento" EntityType="Self.requerimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoSangre" EntityType="Self.tipoSangre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuarioPerfil" EntityType="Self.usuarioPerfil" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_aviso_Requerimiento" Association="Self.FK_aviso_Requerimiento">
+            <End Role="requerimiento" EntitySet="requerimiento" />
+            <End Role="aviso" EntitySet="aviso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_aviso_tipo_sangre" Association="Self.FK_aviso_tipo_sangre">
+            <End Role="tipoSangre" EntitySet="tipoSangre" />
+            <End Role="aviso" EntitySet="aviso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_aviso_usuario" Association="Self.FK_aviso_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="aviso" EntitySet="aviso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_departamento_ciudad" Association="Self.FK_departamento_ciudad">
+            <End Role="ciudad" EntitySet="ciudad" />
+            <End Role="departamento" EntitySet="departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_formulario_usuario" Association="Self.FK_formulario_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="formulario" EntitySet="formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_postulacion_aviso1" Association="Self.FK_postulacion_aviso1">
+            <End Role="aviso" EntitySet="aviso" />
+            <End Role="postulacion" EntitySet="postulacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_postulacion_usuario" Association="Self.FK_postulacion_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="postulacion" EntitySet="postulacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_departamento" Association="Self.FK_usuario_departamento">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuarioPerfil_perfil1" Association="Self.FK_usuarioPerfil_perfil1">
+            <End Role="perfil" EntitySet="perfil" />
+            <End Role="usuarioPerfil" EntitySet="usuarioPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuarioPerfil_usuario1" Association="Self.FK_usuarioPerfil_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuarioPerfil" EntitySet="usuarioPerfil" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DonacionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="aviso">
+          <Key>
+            <PropertyRef Name="idAviso" />
+          </Key>
+          <Property Name="idAviso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuarioSolicitante" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idSangre" Type="Int32" Nullable="false" />
+          <Property Name="idRequerimiento" Type="Int32" Nullable="false" />
+          <Property Name="critico" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cantidad" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="requerimiento" Relationship="Self.FK_aviso_Requerimiento" FromRole="aviso" ToRole="requerimiento" />
+          <NavigationProperty Name="tipoSangre" Relationship="Self.FK_aviso_tipo_sangre" FromRole="aviso" ToRole="tipoSangre" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_aviso_usuario" FromRole="aviso" ToRole="usuario" />
+          <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_aviso1" FromRole="aviso" ToRole="postulacion" />
+        </EntityType>
+        <EntityType Name="ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="departamento" Relationship="Self.FK_departamento_ciudad" FromRole="ciudad" ToRole="departamento" />
+        </EntityType>
+        <EntityType Name="departamento">
+          <Key>
+            <PropertyRef Name="idDepartamento" />
+          </Key>
+          <Property Name="idDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ciudad" Relationship="Self.FK_departamento_ciudad" FromRole="departamento" ToRole="ciudad" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_usuario_departamento" FromRole="departamento" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="formulario">
+          <Key>
+            <PropertyRef Name="idFormulario" />
+          </Key>
+          <Property Name="idFormulario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pregunta1" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="pregunta2" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="pregunta3" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="pregunta4" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_formulario_usuario" FromRole="formulario" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="perfil">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="DonacionModel.usuarioPerfil" FromRole="perfil" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="postulacion">
+          <Key>
+            <PropertyRef Name="idPostulacion" />
+          </Key>
+          <Property Name="idPostulacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAviso" Type="Int32" Nullable="false" />
+          <Property Name="idUsuarioDonante" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aviso" Relationship="Self.FK_postulacion_aviso1" FromRole="postulacion" ToRole="aviso" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_postulacion_usuario" FromRole="postulacion" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="requerimiento">
+          <Key>
+            <PropertyRef Name="idRequerimiento" />
+          </Key>
+          <Property Name="idRequerimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="aviso" Relationship="Self.FK_aviso_Requerimiento" FromRole="requerimiento" ToRole="aviso" />
+        </EntityType>
+        <EntityType Name="tipoSangre">
+          <Key>
+            <PropertyRef Name="idSangre" />
+          </Key>
+          <Property Name="idSangre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="aviso" Relationship="Self.FK_aviso_tipo_sangre" FromRole="tipoSangre" ToRole="aviso" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idPerfil" Type="Int32" />
+          <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Precision="0" />
+          <Property Name="genero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="celular" Type="Int32" />
+          <Property Name="idDepartamento" Type="Int32" />
+          <NavigationProperty Name="aviso" Relationship="Self.FK_aviso_usuario" FromRole="usuario" ToRole="aviso" />
+          <NavigationProperty Name="departamento" Relationship="Self.FK_usuario_departamento" FromRole="usuario" ToRole="departamento" />
+          <NavigationProperty Name="formulario" Relationship="Self.FK_formulario_usuario" FromRole="usuario" ToRole="formulario" />
+          <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_usuario" FromRole="usuario" ToRole="postulacion" />
+          <NavigationProperty Name="perfil" Relationship="DonacionModel.usuarioPerfil" FromRole="usuario" ToRole="perfil" />
+        </EntityType>
+        <Association Name="FK_aviso_Requerimiento">
+          <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="1" />
+          <End Role="aviso" Type="Self.aviso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requerimiento">
+              <PropertyRef Name="idRequerimiento" />
+            </Principal>
+            <Dependent Role="aviso">
+              <PropertyRef Name="idRequerimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_aviso_tipo_sangre">
+          <End Role="tipoSangre" Type="Self.tipoSangre" Multiplicity="1" />
+          <End Role="aviso" Type="Self.aviso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoSangre">
+              <PropertyRef Name="idSangre" />
+            </Principal>
+            <Dependent Role="aviso">
+              <PropertyRef Name="idSangre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_aviso_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="aviso" Type="Self.aviso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="aviso">
+              <PropertyRef Name="idUsuarioSolicitante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_postulacion_aviso1">
+          <End Role="aviso" Type="Self.aviso" Multiplicity="1" />
+          <End Role="postulacion" Type="Self.postulacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aviso">
+              <PropertyRef Name="idAviso" />
+            </Principal>
+            <Dependent Role="postulacion">
+              <PropertyRef Name="idAviso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_departamento_ciudad">
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="1" />
+          <End Role="departamento" Type="Self.departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="departamento">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_departamento">
+          <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departamento">
+              <PropertyRef Name="idDepartamento" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_formulario_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="formulario" Type="Self.formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="formulario">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_postulacion_usuario">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="postulacion" Type="Self.postulacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="postulacion">
+              <PropertyRef Name="idUsuarioDonante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DonacionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="aviso" EntityType="Self.aviso" />
+          <EntitySet Name="ciudad" EntityType="Self.ciudad" />
+          <EntitySet Name="departamento" EntityType="Self.departamento" />
+          <EntitySet Name="formulario" EntityType="Self.formulario" />
+          <EntitySet Name="perfil" EntityType="Self.perfil" />
+          <EntitySet Name="postulacion" EntityType="Self.postulacion" />
+          <EntitySet Name="requerimiento" EntityType="Self.requerimiento" />
+          <EntitySet Name="tipoSangre" EntityType="Self.tipoSangre" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <AssociationSet Name="FK_aviso_Requerimiento" Association="Self.FK_aviso_Requerimiento">
+            <End Role="requerimiento" EntitySet="requerimiento" />
+            <End Role="aviso" EntitySet="aviso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_aviso_tipo_sangre" Association="Self.FK_aviso_tipo_sangre">
+            <End Role="tipoSangre" EntitySet="tipoSangre" />
+            <End Role="aviso" EntitySet="aviso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_aviso_usuario" Association="Self.FK_aviso_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="aviso" EntitySet="aviso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_postulacion_aviso1" Association="Self.FK_postulacion_aviso1">
+            <End Role="aviso" EntitySet="aviso" />
+            <End Role="postulacion" EntitySet="postulacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_departamento_ciudad" Association="Self.FK_departamento_ciudad">
+            <End Role="ciudad" EntitySet="ciudad" />
+            <End Role="departamento" EntitySet="departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_departamento" Association="Self.FK_usuario_departamento">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_formulario_usuario" Association="Self.FK_formulario_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="formulario" EntitySet="formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_postulacion_usuario" Association="Self.FK_postulacion_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="postulacion" EntitySet="postulacion" />
+          </AssociationSet>
+          <AssociationSet Name="usuarioPerfil" Association="DonacionModel.usuarioPerfil">
+            <End Role="perfil" EntitySet="perfil" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="usuarioPerfil">
+          <End Type="DonacionModel.perfil" Role="perfil" Multiplicity="*" />
+          <End Type="DonacionModel.usuario" Role="usuario" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DonacionModelStoreContainer" CdmEntityContainer="DonacionEntities">
+          <EntitySetMapping Name="aviso">
+            <EntityTypeMapping TypeName="DonacionModel.aviso">
+              <MappingFragment StoreEntitySet="aviso">
+                <ScalarProperty Name="idAviso" ColumnName="idAviso" />
+                <ScalarProperty Name="idUsuarioSolicitante" ColumnName="idUsuarioSolicitante" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idSangre" ColumnName="idSangre" />
+                <ScalarProperty Name="idRequerimiento" ColumnName="idRequerimiento" />
+                <ScalarProperty Name="critico" ColumnName="critico" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ciudad">
+            <EntityTypeMapping TypeName="DonacionModel.ciudad">
+              <MappingFragment StoreEntitySet="ciudad">
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departamento">
+            <EntityTypeMapping TypeName="DonacionModel.departamento">
+              <MappingFragment StoreEntitySet="departamento">
+                <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formulario">
+            <EntityTypeMapping TypeName="DonacionModel.formulario">
+              <MappingFragment StoreEntitySet="formulario">
+                <ScalarProperty Name="idFormulario" ColumnName="idFormulario" />
+                <ScalarProperty Name="pregunta1" ColumnName="pregunta1" />
+                <ScalarProperty Name="pregunta2" ColumnName="pregunta2" />
+                <ScalarProperty Name="pregunta3" ColumnName="pregunta3" />
+                <ScalarProperty Name="pregunta4" ColumnName="pregunta4" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="perfil">
+            <EntityTypeMapping TypeName="DonacionModel.perfil">
+              <MappingFragment StoreEntitySet="perfil">
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="postulacion">
+            <EntityTypeMapping TypeName="DonacionModel.postulacion">
+              <MappingFragment StoreEntitySet="postulacion">
+                <ScalarProperty Name="idPostulacion" ColumnName="idPostulacion" />
+                <ScalarProperty Name="idAviso" ColumnName="idAviso" />
+                <ScalarProperty Name="idUsuarioDonante" ColumnName="idUsuarioDonante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requerimiento">
+            <EntityTypeMapping TypeName="DonacionModel.requerimiento">
+              <MappingFragment StoreEntitySet="requerimiento">
+                <ScalarProperty Name="idRequerimiento" ColumnName="idRequerimiento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoSangre">
+            <EntityTypeMapping TypeName="DonacionModel.tipoSangre">
+              <MappingFragment StoreEntitySet="tipoSangre">
+                <ScalarProperty Name="idSangre" ColumnName="idSangre" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="DonacionModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="usuarioPerfil" TypeName="DonacionModel.usuarioPerfil" StoreEntitySet="usuarioPerfil">
+            <EndProperty Name="usuario">
+              <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+            </EndProperty>
+            <EndProperty Name="perfil">
+              <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
