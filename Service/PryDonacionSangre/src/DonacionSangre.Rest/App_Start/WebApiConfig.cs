@@ -1,5 +1,6 @@
 ﻿using DonacionSangre.Rest.ActionFilters;
 using DonacionSangre.Rest.HandlerTrace;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
 using System.Net.Http.Formatting;
@@ -29,9 +30,29 @@ namespace DonacionSangre.Rest.App_Start
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            RegisterCamelCaseProperty(config);
+            RegisterNullEmptyValue(config);
             RegisterHandlers(config);
+        }
+        public static void RegisterCamelCaseProperty(HttpConfiguration config)
+        {
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+        }
+
+        public static void RegisterNullEmptyValue(HttpConfiguration config)
+        {
+            var formatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+
+            formatter.SerializerSettings = new JsonSerializerSettings
+            {
+                DateFormatString = "dd/MM/yyyy",
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented,
+                //DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
+                DefaultValueHandling = DefaultValueHandling.Populate
+            };
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
 
         private static void RegisterHandlers(HttpConfiguration config)

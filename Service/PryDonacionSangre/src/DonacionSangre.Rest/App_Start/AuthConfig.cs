@@ -21,6 +21,8 @@ namespace DonacionSangre.Rest.App_Start
                 Provider = new CredentialsAuthorizationServerProvider(),
             };
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
+            app.UseOAuthBearerTokens(oAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 }
