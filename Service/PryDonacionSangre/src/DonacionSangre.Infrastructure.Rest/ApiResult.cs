@@ -11,6 +11,7 @@ namespace DonacionSangre.Infrastructure.Core
     {
         public ApiResult()
         {
+            Message = string.Empty;
         }
 
         public ApiResult(int operationCode, object data = null)

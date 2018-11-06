@@ -48,13 +48,21 @@ namespace DonacionSangre.Rest.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("{idUsuario}")]
-        public IHttpActionResult Obtener(int idUsuario)
+        [Route("claims")]
+        public IHttpActionResult ObtenerPorCorreo()
         {
-            var entidad = usuarioBL.Obtener(idUsuario);
+            var correo = GetUser();
+            var entidad = usuarioBL.ObtenerPorCorreo(correo);
+            return Ok(new ApiResult() { Data = entidad, OperationCode = HttpStatusCode.OK.GetHashCode() });
+        }
 
-            return Ok(entidad);
-            //return Ok(new ApiResult() { Data = entidad, OperationCode = HttpStatusCode.OK.GetHashCode() });
+        [Authorize]
+        [HttpGet]
+        [Route("{idUsuario}")]
+        public IHttpActionResult ObtenerPorId(int idUsuario)
+        {
+            var entidad = usuarioBL.ObtenerPorId(idUsuario);
+            return Ok(new ApiResult() { Data = entidad, OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
     }
 }
