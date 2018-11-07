@@ -181,6 +181,11 @@ namespace DonacionSangre.DataModel.GenericRepository
             return DbSet.Find(primaryKey) != null;
         }
 
+        public bool Exists(Func<T, bool> where)
+        {
+            return DbSet.Where(where).FirstOrDefault() != null;
+        }
+
         /// <summary>
         /// Gets a single record by the specified criteria (usually the unique identifier)
         /// </summary>
@@ -200,6 +205,6 @@ namespace DonacionSangre.DataModel.GenericRepository
         {
             return DbSet.First<T>(predicate);
         }
-        
+
     }
 }

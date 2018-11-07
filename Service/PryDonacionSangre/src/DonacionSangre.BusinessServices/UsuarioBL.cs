@@ -2,6 +2,7 @@
 using DonacionSangre.BusinessEntity;
 using DonacionSangre.DataModel.BDContext;
 using DonacionSangre.DataModel.UnitOfWork;
+using DonacionSangre.Infrastructure.Core.ExceptionHandling;
 
 namespace DonacionSangre.BusinessServices
 {
@@ -10,6 +11,7 @@ namespace DonacionSangre.BusinessServices
         bool ValidarLogin(string correo, string password);
         UsuarioBE ObtenerPorCorreo(string correo);
         UsuarioBE ObtenerPorId(int idUsuario);
+        void Registrar(UsuarioBE entidad);
     }
 
     public class UsuarioBL : IUsuarioBL
@@ -31,6 +33,7 @@ namespace DonacionSangre.BusinessServices
         {
             var entidad = unitOfWork.UsuarioRepository.Get(t => t.correo == correo);
             var usuario = Mapper.Map<usuario, UsuarioBE>(entidad);
+            usuario.Password = string.Empty;
             return usuario;
         }
 
@@ -40,5 +43,19 @@ namespace DonacionSangre.BusinessServices
             var usuario = Mapper.Map<usuario, UsuarioBE>(entidad);
             return usuario;
         }
+
+        public void Registrar(UsuarioBE entidad)
+        {
+            var usuario = Mapper.Map<UsuarioBE, usuario>(entidad);
+
+            if (unitOfWork.UsuarioRepository.Exists(t => t.correo == usuario.correo))
+            {
+                throw new ApiBusinessException("Correo {0} ya esta registrado.", usuario.correo);
+            }
+
+            unitOfWork.UsuarioRepository.Insert(usuario);
+            unitOfWork.Save();
+        }
+
     }
 }

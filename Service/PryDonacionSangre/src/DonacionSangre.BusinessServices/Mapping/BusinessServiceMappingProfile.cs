@@ -8,6 +8,7 @@ namespace DonacionSangre.BusinessServices.Mapping
         public BusinessServiceMappingProfile()
         {
             CreateMap<usuario, UsuarioBE>();
+            CreateMap<UsuarioBE, usuario>();
         }
     }
 }

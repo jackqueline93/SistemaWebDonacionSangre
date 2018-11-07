@@ -63,15 +63,18 @@ namespace DonacionSangre.Rest.Result
             var errorDataModel = new ErrorDataResponse
             {
                 Message = _exception.Message,
-
-                InnerException = withError ? _exception.InnerException : null,
-                StackTrace = withError ? _exception.StackTrace : string.Empty,
+                InnerException = _exception.InnerException,
+                StackTrace = _exception.StackTrace,
                 ErrorReference = _exception.Data["ErrorReference"] != null ? _exception.Data["ErrorReference"].ToString() : string.Empty,
-
                 DateTime = DateTime.UtcNow
             };
 
-            _result = new ApiResult() { Data = errorDataModel, Message = "Api: Error interno", OperationCode = (int)HttpStatusCode.InternalServerError };
+            _result = new ApiResult()
+            {
+                Data = withError ? errorDataModel : null,
+                Message = _exception.Message ?? "Api: Error interno",
+                OperationCode = (int)HttpStatusCode.InternalServerError
+            };
             return _result;
         }
     }

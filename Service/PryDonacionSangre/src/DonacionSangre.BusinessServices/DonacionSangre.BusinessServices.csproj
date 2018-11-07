@@ -89,6 +89,10 @@
       <Project>{6b8559ae-8d20-4e85-8dee-463f03285078}</Project>
       <Name>DonacionSangre.DataModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DonacionSangre.Infrastructure.Rest\DonacionSangre.Infrastructure.Rest.csproj">
+      <Project>{2BD493A5-AD3B-4229-A9E0-6DCA819E71CB}</Project>
+      <Name>DonacionSangre.Infrastructure.Rest</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
