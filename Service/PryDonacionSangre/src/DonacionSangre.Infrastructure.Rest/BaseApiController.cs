@@ -17,7 +17,7 @@ namespace DonacionSangre.Infrastructure.Rest
 
             return result;
         }
-        
+
         protected string GetToken()
         {
             var token = Request.Headers.Authorization.Parameter;
@@ -26,6 +26,11 @@ namespace DonacionSangre.Infrastructure.Rest
         protected string GetUser()
         {
             return GetValueToken(ClaimTypes.Name);
+        }
+
+        protected int GetIdUser()
+        {
+            return int.Parse(GetValueToken("Id"));
         }
     }
 }

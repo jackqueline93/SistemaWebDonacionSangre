@@ -32,5 +32,6 @@ namespace DonacionSangre.Rest.Controllers
             var entidad = usuarioBL.ObtenerPorId(idUsuario);
             return Ok(new ApiResult() { Data = entidad, OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
+
     }
 }

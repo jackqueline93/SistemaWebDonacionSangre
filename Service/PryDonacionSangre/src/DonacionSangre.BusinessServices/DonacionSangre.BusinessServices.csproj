@@ -76,7 +76,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvisoBL.cs" />
+    <Compile Include="GeneralBL.cs" />
     <Compile Include="Mapping\BusinessServiceMappingProfile.cs" />
+    <Compile Include="PostulacionBL.cs" />
     <Compile Include="UsuarioBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
