@@ -5,6 +5,7 @@
                <button  mat-button routerLink="/home">Inicio</button>
                <button mat-button routerLink="/login">Iniciar Sesión</button>
                <button mat-button routerLink="/register-account">Registrar Usuario</button>
+               <button mat-button (click)="Logout()">CerrarSesión</button>
         </mat-sidenav>
         <mat-sidenav-content>
             <button  mat-icon-button color="accent" (click)="sidenav.toggle()"> 

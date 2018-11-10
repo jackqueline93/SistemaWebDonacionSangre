@@ -10,12 +10,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterAccountComponent } from './register-account/register-account.component';
 import { UserService } from 'src/app/shared/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth/auth.guard';
+import {appRoutes} from './routes';
 
-const appRoutes: Routes=[
-  { path: 'home', component: HomeComponent },
-  { path: 'register-account', component: RegisterAccountComponent },
-  { path: 'login', component: LoginComponent}
-]
+
 
 
 @NgModule({
@@ -41,7 +39,7 @@ const appRoutes: Routes=[
       {enableTracing: true}
     )
   ],
-  providers: [UserService],
+  providers: [UserService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
