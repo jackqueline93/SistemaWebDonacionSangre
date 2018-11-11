@@ -18,6 +18,7 @@
           <Property Name="cantidad" Type="decimal" Precision="5" Scale="0" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="200" />
           <Property Name="imagen" Type="image" />
+          <Property Name="fechaVigencia" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ciudad">
           <Key>
@@ -292,6 +293,7 @@
           <NavigationProperty Name="tipoSangre" Relationship="Self.FK_aviso_tipo_sangre" FromRole="aviso" ToRole="tipoSangre" />
           <NavigationProperty Name="usuario" Relationship="Self.FK_aviso_usuario" FromRole="aviso" ToRole="usuario" />
           <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_aviso1" FromRole="aviso" ToRole="postulacion" />
+          <Property Name="fechaVigencia" Type="DateTime" Precision="3" Nullable="false" />
         </EntityType>
         <EntityType Name="ciudad">
           <Key>
@@ -535,6 +537,7 @@
           <EntitySetMapping Name="aviso">
             <EntityTypeMapping TypeName="DonacionModel.aviso">
               <MappingFragment StoreEntitySet="aviso">
+                <ScalarProperty Name="fechaVigencia" ColumnName="fechaVigencia" />
                 <ScalarProperty Name="idAviso" ColumnName="idAviso" />
                 <ScalarProperty Name="idUsuarioSolicitante" ColumnName="idUsuarioSolicitante" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />

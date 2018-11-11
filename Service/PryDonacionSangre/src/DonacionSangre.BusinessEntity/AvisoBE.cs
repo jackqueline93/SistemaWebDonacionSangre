@@ -13,5 +13,6 @@ namespace DonacionSangre.BusinessEntity
         public decimal Cantidad { get; set; }
         public string Descripcion { get; set; }
         public byte[] Imagen { get; set; }
+        public string FechaVigencia { get; set; }
     }
 }

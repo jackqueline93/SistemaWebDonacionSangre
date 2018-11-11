@@ -18,7 +18,7 @@ namespace DonacionSangre.Rest.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("usuario")]
+        [Route("")]
         public IHttpActionResult ObtenerAvisoPorUsuario()
         {
             var idUsuario = GetIdUser();
@@ -27,12 +27,40 @@ namespace DonacionSangre.Rest.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        [Route("{id}")]
+        public IHttpActionResult ObtenerAvisoPorId(int id)
+        {
+            var idUsuario = GetIdUser();
+            var entidad = avisoBL.ObtenerAvisoPorId(id, idUsuario);
+            return Ok(new ApiResult() { Data = entidad, OperationCode = HttpStatusCode.OK.GetHashCode() });
+        }
+
+        [Authorize]
         [HttpPost]
-        [Route("usuario")]
+        [Route("")]
         public IHttpActionResult Registrar(AvisoBE avisoBE)
         {
             avisoBE.IdUsuarioSolicitante = GetIdUser();
-            avisoBL.Registrar(avisoBE);
+            var id = avisoBL.Registrar(avisoBE);
+            return Ok(new ApiResult() { Data = new { IdAviso = id }, OperationCode = HttpStatusCode.OK.GetHashCode() });
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("{id}")]
+        public IHttpActionResult Modificar(int id, AvisoBE avisoBE)
+        {
+            avisoBL.Modificar(id, avisoBE);
+            return Ok(new ApiResult() { OperationCode = HttpStatusCode.OK.GetHashCode() });
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("{id}")]
+        public IHttpActionResult Eliminar(int id)
+        {
+            avisoBL.Eliminar(id);
             return Ok(new ApiResult() { OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
     }

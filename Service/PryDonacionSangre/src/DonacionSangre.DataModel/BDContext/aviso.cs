@@ -29,6 +29,7 @@ namespace DonacionSangre.DataModel.BDContext
         public decimal cantidad { get; set; }
         public string descripcion { get; set; }
         public byte[] imagen { get; set; }
+        public System.DateTime fechaVigencia { get; set; }
     
         public virtual requerimiento requerimiento { get; set; }
         public virtual tipoSangre tipoSangre { get; set; }

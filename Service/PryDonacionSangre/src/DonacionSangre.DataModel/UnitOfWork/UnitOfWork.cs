@@ -33,7 +33,7 @@ namespace DonacionSangre.DataModel.UnitOfWork
                 return _usuarioRepository;
             }
         }
-        public Repository<aviso> AvispRepository
+        public Repository<aviso> AvisoRepository
         {
             get
             {
