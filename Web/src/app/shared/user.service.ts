@@ -13,7 +13,6 @@ const httpOptions = {
 })*/
 @Injectable()
 export class UserService {
-  readonly rootUrl = 'http://localhost:57962';
   constructor(private http: HttpClient){}
 
   registerUser(user : User)
@@ -22,7 +21,7 @@ export class UserService {
       Email: user.Email,
       Password: user.Password
     }
-    return this.http.post(this.rootUrl+'/api/User/Register', body, httpOptions);
+    return this.http.post('/api/User/Register', body, httpOptions);
 
 
   }
@@ -30,7 +29,7 @@ export class UserService {
 
   userAuthentication(userName, password) {
     var data = "username=" + userName + "&password=" + password + "&grant_type=password";
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded','No-Auth':'True' });
-    return this.http.post(this.rootUrl + '/token', data, { headers: reqHeader });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded','No-Auth':'True','Access-Control-Allow-Origin':'*' });
+    return this.http.post('/api/login', data, { headers: reqHeader });
   }
 }
