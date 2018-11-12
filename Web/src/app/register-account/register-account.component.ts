@@ -26,7 +26,7 @@ export class RegisterAccountComponent implements OnInit  {
     if(form !=null){
     form.reset();
     this.user = {
-      Email: '',
+      Correo: '',
       Password: ''
     }
    }
@@ -35,7 +35,7 @@ export class RegisterAccountComponent implements OnInit  {
   OnSubmit(form?:NgForm) { 
     //this.submitted = true; 
         this.userService.registerUser(form.value).subscribe((data: any)=>{
-          if(data.Succeeded== true)
+          if(data.OperationCode== 200)
               this.resetForm(form);
         });
 

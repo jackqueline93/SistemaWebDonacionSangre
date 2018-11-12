@@ -5,6 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatFormFieldModule} from '@angular/material';
 import { HomeComponent } from './home/home.component';
+import { BuscarAvisosComponent } from './buscar-avisos/buscar-avisos.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterAccountComponent } from './register-account/register-account.component';
@@ -21,7 +22,8 @@ import {appRoutes} from './routes';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterAccountComponent
+    RegisterAccountComponent,
+    BuscarAvisosComponent
   ],
   imports: [
     BrowserModule,
