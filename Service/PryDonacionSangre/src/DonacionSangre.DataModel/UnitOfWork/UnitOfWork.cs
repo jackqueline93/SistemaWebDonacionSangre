@@ -14,6 +14,9 @@ namespace DonacionSangre.DataModel.UnitOfWork
         private readonly IDatabaseFactory _databaseFactory;
         //private readonly DonacionEntities _context = null;
         private Repository<usuario> _usuarioRepository;
+        private Repository<aviso> _avisoRepository;
+        private Repository<postulacion> _postulacionRepository;
+        private GeneralRepository _generalRepository;
 
         public UnitOfWork()
         {
@@ -28,6 +31,34 @@ namespace DonacionSangre.DataModel.UnitOfWork
                 if (this._usuarioRepository == null)
                     this._usuarioRepository = new Repository<usuario>(_databaseFactory);
                 return _usuarioRepository;
+            }
+        }
+        public Repository<aviso> AvisoRepository
+        {
+            get
+            {
+                if (this._avisoRepository == null)
+                    this._avisoRepository = new Repository<aviso>(_databaseFactory);
+                return _avisoRepository;
+            }
+        }
+        public Repository<postulacion> PostulacionRepository
+        {
+            get
+            {
+                if (this._postulacionRepository == null)
+                    this._postulacionRepository = new Repository<postulacion>(_databaseFactory);
+                return _postulacionRepository;
+            }
+        }
+
+        public GeneralRepository GeneralRepository
+        {
+            get
+            {
+                if (this._generalRepository == null)
+                    this._generalRepository = new GeneralRepository(_databaseFactory);
+                return _generalRepository;
             }
         }
 

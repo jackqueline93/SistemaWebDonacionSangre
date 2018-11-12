@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DonacionSangre.BusinessEntity\DonacionSangre.BusinessEntity.csproj">
+      <Project>{1AAF5EC2-7C03-4AE6-8D86-ACF508232A9B}</Project>
+      <Name>DonacionSangre.BusinessEntity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DonacionSangre.BusinessServices\DonacionSangre.BusinessServices.csproj">
       <Project>{58b30553-4bf6-4d69-b99a-0142622ea998}</Project>
       <Name>DonacionSangre.BusinessServices</Name>

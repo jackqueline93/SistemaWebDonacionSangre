@@ -24,11 +24,12 @@ namespace DonacionSangre.DataModel.BDContext
         public int idUsuarioSolicitante { get; set; }
         public string nombre { get; set; }
         public int idSangre { get; set; }
-        public int idRequerimiento { get; set; }
+        public Nullable<int> idRequerimiento { get; set; }
         public string critico { get; set; }
         public decimal cantidad { get; set; }
         public string descripcion { get; set; }
         public byte[] imagen { get; set; }
+        public System.DateTime fechaVigencia { get; set; }
     
         public virtual requerimiento requerimiento { get; set; }
         public virtual tipoSangre tipoSangre { get; set; }

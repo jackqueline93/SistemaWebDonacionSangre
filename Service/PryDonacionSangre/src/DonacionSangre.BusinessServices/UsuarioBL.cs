@@ -8,7 +8,7 @@ namespace DonacionSangre.BusinessServices
 {
     public interface IUsuarioBL
     {
-        bool ValidarLogin(string correo, string password);
+        UsuarioBE ValidarLogin(string correo, string password);
         UsuarioBE ObtenerPorCorreo(string correo);
         UsuarioBE ObtenerPorId(int idUsuario);
         void Registrar(UsuarioBE entidad);
@@ -23,10 +23,11 @@ namespace DonacionSangre.BusinessServices
             unitOfWork = new UnitOfWork();
         }
 
-        public bool ValidarLogin(string correo, string password)
+        public UsuarioBE ValidarLogin(string correo, string password)
         {
-            var token = unitOfWork.UsuarioRepository.Get(t => t.correo == correo && t.password == password);
-            return token != null ? true : false;
+            var entidad = unitOfWork.UsuarioRepository.Get(t => t.correo == correo && t.password == password);
+            var usuario = Mapper.Map<usuario, UsuarioBE>(entidad);
+            return usuario;
         }
 
         public UsuarioBE ObtenerPorCorreo(string correo)

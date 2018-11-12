@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Configuration\BaseConfiguration.cs" />
     <Compile Include="Constant\GeneralConstant.cs" />
+    <Compile Include="Function\ComunUtil.cs" />
     <Compile Include="Function\LogUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

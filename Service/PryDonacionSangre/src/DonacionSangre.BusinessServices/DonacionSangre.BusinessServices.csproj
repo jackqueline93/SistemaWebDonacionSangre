@@ -76,7 +76,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvisoBL.cs" />
+    <Compile Include="GeneralBL.cs" />
     <Compile Include="Mapping\BusinessServiceMappingProfile.cs" />
+    <Compile Include="PostulacionBL.cs" />
     <Compile Include="UsuarioBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +91,10 @@
     <ProjectReference Include="..\DonacionSangre.DataModel\DonacionSangre.DataModel.csproj">
       <Project>{6b8559ae-8d20-4e85-8dee-463f03285078}</Project>
       <Name>DonacionSangre.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DonacionSangre.Infrastructure.Core\DonacionSangre.Infrastructure.Core.csproj">
+      <Project>{299C4A1E-C78F-4E78-9205-8F023518AB09}</Project>
+      <Name>DonacionSangre.Infrastructure.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DonacionSangre.Infrastructure.Rest\DonacionSangre.Infrastructure.Rest.csproj">
       <Project>{2BD493A5-AD3B-4229-A9E0-6DCA819E71CB}</Project>

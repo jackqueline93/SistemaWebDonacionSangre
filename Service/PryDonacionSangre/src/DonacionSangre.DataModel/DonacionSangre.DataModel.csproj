@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvisoRepository.cs" />
     <Compile Include="BDContext\aviso.cs">
       <DependentUpon>DonacionBD.tt</DependentUpon>
     </Compile>
@@ -91,6 +92,8 @@
     <Compile Include="BDContext\usuario.cs">
       <DependentUpon>DonacionBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="GeneralRepository.cs" />
+    <Compile Include="PostulacionRepository.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="UsuarioRepository.cs" />

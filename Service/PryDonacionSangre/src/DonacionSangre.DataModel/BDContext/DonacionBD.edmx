@@ -13,11 +13,12 @@
           <Property Name="idUsuarioSolicitante" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="idSangre" Type="int" Nullable="false" />
-          <Property Name="idRequerimiento" Type="int" Nullable="false" />
-          <Property Name="critico" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="idRequerimiento" Type="int" />
+          <Property Name="critico" Type="char" MaxLength="2" />
           <Property Name="cantidad" Type="decimal" Precision="5" Scale="0" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="200" />
           <Property Name="imagen" Type="image" />
+          <Property Name="fechaVigencia" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ciudad">
           <Key>
@@ -100,7 +101,7 @@
           <Property Name="idPerfil" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_aviso_Requerimiento">
-          <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="1" />
+          <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="0..1" />
           <End Role="aviso" Type="Self.aviso" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="requerimiento">
@@ -283,8 +284,8 @@
           <Property Name="idUsuarioSolicitante" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idSangre" Type="Int32" Nullable="false" />
-          <Property Name="idRequerimiento" Type="Int32" Nullable="false" />
-          <Property Name="critico" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idRequerimiento" Type="Int32" />
+          <Property Name="critico" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="cantidad" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -292,6 +293,7 @@
           <NavigationProperty Name="tipoSangre" Relationship="Self.FK_aviso_tipo_sangre" FromRole="aviso" ToRole="tipoSangre" />
           <NavigationProperty Name="usuario" Relationship="Self.FK_aviso_usuario" FromRole="aviso" ToRole="usuario" />
           <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_aviso1" FromRole="aviso" ToRole="postulacion" />
+          <Property Name="fechaVigencia" Type="DateTime" Precision="3" Nullable="false" />
         </EntityType>
         <EntityType Name="ciudad">
           <Key>
@@ -380,7 +382,7 @@
           <NavigationProperty Name="perfil" Relationship="DonacionModel.usuarioPerfil" FromRole="usuario" ToRole="perfil" />
         </EntityType>
         <Association Name="FK_aviso_Requerimiento">
-          <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="1" />
+          <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="0..1" />
           <End Role="aviso" Type="Self.aviso" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="requerimiento">
@@ -535,6 +537,7 @@
           <EntitySetMapping Name="aviso">
             <EntityTypeMapping TypeName="DonacionModel.aviso">
               <MappingFragment StoreEntitySet="aviso">
+                <ScalarProperty Name="fechaVigencia" ColumnName="fechaVigencia" />
                 <ScalarProperty Name="idAviso" ColumnName="idAviso" />
                 <ScalarProperty Name="idUsuarioSolicitante" ColumnName="idUsuarioSolicitante" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
