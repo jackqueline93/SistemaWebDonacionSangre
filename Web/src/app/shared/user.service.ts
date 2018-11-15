@@ -39,4 +39,10 @@ export class UserService {
     return this.http.get('/api/seguridad/claims',  { headers: reqHeader });
 
   }
+
+  getAvisos(token): Observable<any>{
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+token,'Access-Control-Allow-Origin':'*' });
+    return this.http.get('/api/avisos',  { headers: reqHeader });
+
+  }
 }
