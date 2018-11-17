@@ -1,10 +1,8 @@
-﻿using DonacionSangre.BusinessServices;
+﻿using DonacionSangre.BusinessEntity;
+using DonacionSangre.BusinessServices;
+using DonacionSangre.Infrastructure.Core;
 using DonacionSangre.Infrastructure.Rest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DonacionSangre.Rest.Controllers
@@ -16,6 +14,25 @@ namespace DonacionSangre.Rest.Controllers
         public PostulacionController()
         {
             postulacionBL = new PostulacionBL();
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("{idTipoSangre?}")]
+        public IHttpActionResult BuscarAviso(int idTipoSangre = 0)
+        {
+            var lista = postulacionBL.BuscarAviso(idTipoSangre);
+            return Ok(new ApiResult() { Data = lista, OperationCode = HttpStatusCode.OK.GetHashCode() });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult Registrar(PostulacionBE entidad)
+        {
+            entidad.IdUsuarioDonante = GetIdUser();
+            var id = postulacionBL.Registrar(entidad);
+            return Ok(new ApiResult() { Data = new { IdAviso = id }, OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
 
     }

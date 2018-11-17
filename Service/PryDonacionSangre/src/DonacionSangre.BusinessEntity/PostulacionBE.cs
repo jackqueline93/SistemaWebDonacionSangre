@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DonacionSangre.BusinessEntity
+﻿namespace DonacionSangre.BusinessEntity
 {
     public class PostulacionBE
     {
+        public int IdPostulacion { get; set; }
+        public int IdAviso { get; set; }
+        public int IdUsuarioDonante { get; set; }
     }
 }
