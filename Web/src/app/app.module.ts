@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatFormFieldModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatFormFieldModule, MatCardModule} from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { BuscarAvisosComponent } from './buscar-avisos/buscar-avisos.component';
 import { LoginComponent } from './login/login.component';
@@ -13,6 +13,8 @@ import { UserService } from 'src/app/shared/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import {appRoutes} from './routes';
+import { MisAvisosComponent } from './mis-avisos/mis-avisos.component';
+
 
 
 
@@ -23,7 +25,8 @@ import {appRoutes} from './routes';
     HomeComponent,
     LoginComponent,
     RegisterAccountComponent,
-    BuscarAvisosComponent
+    BuscarAvisosComponent,
+    MisAvisosComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import {appRoutes} from './routes';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCardModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
