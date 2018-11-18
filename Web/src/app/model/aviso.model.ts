@@ -5,7 +5,7 @@ export class Aviso {
         public Nombre: string,
         public IdSangre: number,
         public Cantidad: number,
-        public Descripcion: number,
+        public Descripcion: string,
         public Imagen: string,
         public FechaVigencia: string 
         ){}
