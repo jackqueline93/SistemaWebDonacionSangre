@@ -70,7 +70,7 @@ namespace DonacionSangre.BusinessServices
             unitOfWork.PostulacionRepository.Insert(postulacion);
             unitOfWork.Save();
 
-            return postulacion.idAviso;
+            return postulacion.idPostulacion;
         }
 
 

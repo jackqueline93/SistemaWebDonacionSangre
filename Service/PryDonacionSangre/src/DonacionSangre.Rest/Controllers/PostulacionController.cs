@@ -32,7 +32,7 @@ namespace DonacionSangre.Rest.Controllers
         {
             entidad.IdUsuarioDonante = GetIdUser();
             var id = postulacionBL.Registrar(entidad);
-            return Ok(new ApiResult() { Data = new { IdAviso = id }, OperationCode = HttpStatusCode.OK.GetHashCode() });
+            return Ok(new ApiResult() { Data = new { idPostulacion = id }, OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
 
     }
