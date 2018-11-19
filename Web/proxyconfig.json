@@ -1,5 +1,5 @@
 { "/":{
-        "target":"http://localhost:64691",
+        "target": "http://35.184.91.9",///"http://localhost:64691",
         "secure": false,
         "changeOrigin": true
     }
