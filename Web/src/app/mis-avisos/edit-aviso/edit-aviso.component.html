@@ -1,0 +1,64 @@
+<!-- Material form contact -->
+<mat-card>
+
+  <mat-card-header class="info-color white-text text-center py-4">
+    <h5>
+      <strong>Aviso</strong>
+    </h5>
+  </mat-card-header>
+
+
+  <!--Card content-->
+  <mat-card-content class="px-lg-5 pt-0">
+
+    <!-- Form -->
+    <form class="text-center" style="color: #757575;"  #avisoRegistrationForm="ngForm" (ngSubmit)="OnSubmit(avisoRegistrationForm)">
+
+      <!-- Nombre del aviso -->
+      <div class="mat-form">
+          <label for="nombreAviso">Nombre del aviso</label>
+          <input type="text" id="nombreAviso" class="form-control" matInputDirective  name="Nombre" #Nombre="ngModel" [(ngModel)]="aviso.Nombre" required >
+        </div>
+
+      <!-- Cantidad Personas Requeridas -->
+      <div class="md-form mt-3">
+          <label for="cantidadPersonaRequerida">Cantidad de personas requeridas</label>
+        <input type="number" id="cantidadPersonaRequerida" class="form-control" matInputDirective  name="Cantidad" #Cantidad="ngModel" [(ngModel)]="aviso.Cantidad" >
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+          <h4>Grupo de Sangre</h4>
+          <mat-form-field>
+            <mat-select placeholder="Tipo de Sangre"  name="IdSangre" #IdSangre="ngModel" [(ngModel)]="aviso.IdSangre" required>
+              <mat-option *ngFor="let tipoSangre of tiposSangre.Data" [value]="tipoSangre.Codigo">
+                {{tipoSangre.Descripcion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!--Message-->
+      <div class="mat-form">
+          <label for="descripcionAviso">Descripcion:</label>
+        <textarea type="text" id="descripcionAviso" class="form-control md-textarea" matInputDirective  name="Descripcion" #Descripcion="ngModel" [(ngModel)]="aviso.Descripcion"></textarea>
+      </div>
+
+      <div class="mat-form">
+         <label for="fechaVigencia">Fecha de Vigencia:</label>
+        <input type="date" [ngModel] ="dt | date:'yyyy-MM-dd'" (ngModelChange)="dt = $event" name="FechaVigencia" #FechaVigencia="ngModel" [(ngModel)]="aviso.FechaVigencia"  >
+      </div>
+
+
+      <!-- Send button -->
+      <button matBtn color="info" outline="true" rounded="true" block="true" class="z-depth-0 my-4 waves-effect" matWavesEffect
+        type="submit" [disabled]="!avisoRegistrationForm.valid" >Actualizar</button>
+
+    </form>
+    <!-- Form -->
+
+  </mat-card-content>
+
+</mat-card>
+<!-- Material form contact -->

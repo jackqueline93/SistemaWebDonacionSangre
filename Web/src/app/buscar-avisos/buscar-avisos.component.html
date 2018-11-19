@@ -1,14 +1,78 @@
-<div>
-  <input #tipoSangre />
-  <button (click)="buscar(tipoSangre.value)">
-    search
-  </button>
+<!--<div>
+    <div class="row">
+        <form  (ngSubmit)="buscarAviso()">
+              <div class="col-md-12 mx-auto">
+                <h4>Grupo de Sangre</h4>
+                <mat-form-field>
+                  <mat-select placeholder="Tipo de Sangre" required>
+                    <mat-option *ngFor="let tipoSangre of tiposSangre.Data" [value]="tipoSangre.Codigo" [(ngModel)]="searchText">
+                      {{tipoSangre.Descripcion}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <button type="submit" >
+                search
+              </button>
+        </form>
+      </div>
+  </div>-->
+  <!--<div class="row">
+      <div class="col-md-12 mx-auto">
+        <h4>Grupo de Sangre</h4>
+        <mat-form-field>
+            <select matNativeControl placeholder="Tipo de Sangre"    required>
+              <option value="2">0-</option>
+              <option value="3">0+</option>
+              <option value="4">A-</option>
+              <option value="5">A+</option>
+              <option value="6">B-</option>
+              <option value="7">B+</option>
+              <option value="8">AB</option>
+              <option value="8">AB+</option>
+            </select>
+          </mat-form-field>
+      </div>
+  </div>-->
+<!--<mat-card class="example-card" *ngFor="let aviso of avisos.Data | filter : searchText">
+    <mat-card-header>
+      <mat-card-title>{{aviso.Nombre}}</mat-card-title>     
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{aviso.Descripcion}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="btn btn-danger" (click)="verAviso(aviso.IdAviso)"> Ver Detalle</button>
+    </mat-card-actions>
+</mat-card>-->
+<div class="form-group">
+<!--<input type="text" class="form-control" placeholder="Search tipo de sangre" [(ngModel)]="searchText" (input)="Search()"/>-->
+<div class="col-md-12 mx-auto">
+    <h4>Grupo de Sangre</h4>
+    <!--<input type="select" class="form-control" placeholder="Search tipo de sangre" [(ngModel)]="searchText" (input)="Search()"/>-->
+    <select matNativeControl   [(ngModel)]="searchText" (input)="Search()" value="2">
+        <option value="2">0-</option>
+        <option value="3">0+</option>
+        <option value="4">A-</option>
+        <option value="5">A+</option>
+        <option value="6">B-</option>
+        <option value="7">B+</option>
+        <option value="8">AB</option>
+        <option value="9">AB+</option>
+      </select>
 </div>
-<ul class="avisos">
-  <li *ngFor="let aviso of avisos">
-      <a>
-          <span class="badge"></span>
-          <span *ngIf="hero!==editHero"></span>
-      </a>
-  </li>
-</ul>
+<div *ngFor="let aviso of avisos.Data ">
+    <mat-card-header>
+        <mat-card-title>{{aviso.Nombre}}</mat-card-title>     
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{aviso.Descripcion}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button class="btn btn-danger" (click)="verAviso(aviso.IdAviso)"> Ver Detalle</button>
+      </mat-card-actions>
+</div>

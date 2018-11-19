@@ -1,0 +1,37 @@
+<mat-card-header>
+<h2 mat-dialog-title>Aviso</h2>
+<mat-divider></mat-divider>
+<h3>{{data.Data.Nombre}}</h3>
+</mat-card-header>
+<mat-dialog-content>{{data.Data.Descripcion}}</mat-dialog-content>
+<div  [ngSwitch]="data.Data.IdSangre">
+    <div *ngSwitchCase="'2'">
+        <p>0-</p>
+    </div>
+    <div *ngSwitchCase="'3'">
+      <p>0+</p>
+   </div>
+    <div *ngSwitchCase="'4'">
+      <p>A-</p>
+    </div>
+    <div *ngSwitchCase="'5'">
+      <p>A+</p>
+    </div>
+    <div *ngSwitchCase="'6'">
+      <p>B-</p>
+    </div>
+    <div *ngSwitchCase="'7'">
+      <p>B+</p>
+    </div>
+    <div *ngSwitchCase="'8'">
+      <p>AB</p>
+    </div>
+    <div *ngSwitchCase="'9'">
+      <p>AB+</p>
+    </div>
+</div>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="Postular(data.Data.IdAviso)">Postular</button>
+  <button mat-button [mat-dialog-close]="true"></button>
+</mat-dialog-actions>
+<footer>{{data.Data.FechaVigencia}}</footer>

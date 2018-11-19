@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatFormFieldModule, MatCardModule } from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatFormFieldModule, MatCardModule, MatInputModule, MatDialogModule, MatDividerModule} from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { BuscarAvisosComponent } from './buscar-avisos/buscar-avisos.component';
 import { LoginComponent } from './login/login.component';
@@ -16,9 +16,9 @@ import {appRoutes} from './routes';
 import { MisAvisosComponent } from './mis-avisos/mis-avisos.component';
 import { AddAvisoComponent } from './mis-avisos/add-aviso/add-aviso.component';
 import {MatSelectModule} from '@angular/material/select';
-
-
-
+import { AvisoFilterPipe } from 'src/app/buscar-avisos/aviso-filter.pipe';
+import { DetailAvisoComponent } from 'src/app/buscar-avisos/detail-aviso/detail-aviso.component';
+import { EditAvisoComponent } from './mis-avisos/edit-aviso/edit-aviso.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,10 @@ import {MatSelectModule} from '@angular/material/select';
     RegisterAccountComponent,
     BuscarAvisosComponent,
     MisAvisosComponent,
-    AddAvisoComponent
+    AddAvisoComponent,
+    AvisoFilterPipe,
+    DetailAvisoComponent,
+    EditAvisoComponent
   ],
   imports: [
     BrowserModule,
@@ -40,13 +43,19 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatInputModule,
     FormsModule,
     MatCardModule,
+    MatDialogModule,
     MatSelectModule,
+    MatDividerModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
     )
+  ],
+  entryComponents:[
+   DetailAvisoComponent
   ],
   providers: [UserService, AuthGuard],
   bootstrap: [AppComponent]

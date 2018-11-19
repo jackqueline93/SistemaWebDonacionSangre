@@ -14,7 +14,7 @@ export class AddAvisoComponent implements OnInit {
   tiposSangre: TipoSangre[];
   aviso = new Aviso(0,0,'',0,null,'','','');
   constructor(private userService : UserService,private router : Router) { }
-
+  dt = null;
   ngOnInit() {
     this.getTiposSangre();
   }
@@ -52,6 +52,7 @@ export class AddAvisoComponent implements OnInit {
         this.userService.registerAviso(form.value).subscribe((data: any)=>{
           if(data.OperationCode== 200){
               this.resetForm(form);
+              this.router.navigate(['mis-avisos']);
           }
           else{
             console.log('Hubo un problema');

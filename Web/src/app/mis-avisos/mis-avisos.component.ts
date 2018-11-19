@@ -44,4 +44,10 @@ export class MisAvisosComponent implements OnInit {
     this.router.navigate(['add-aviso']);
   };
 
+  editAviso(aviso: Aviso): void {
+    localStorage.removeItem("editAvisoId");
+    localStorage.setItem("editAvisoId", aviso.IdAviso.toString());
+    this.router.navigate(['edit-aviso']);
+  };
+
 }
