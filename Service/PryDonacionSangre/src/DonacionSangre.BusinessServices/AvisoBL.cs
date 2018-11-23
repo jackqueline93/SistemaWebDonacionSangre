@@ -30,7 +30,7 @@ namespace DonacionSangre.BusinessServices
 
         public IEnumerable<AvisoBE> ObtenerAvisoPorUsuario(int idUsuario)
         {
-            var lista = unitOfWork.AvisoRepository.GetWithInclude(x => x.idUsuarioSolicitante.Equals(idUsuario), "tipoSangre").ToList();
+            var lista = unitOfWork.AvisoRepository.GetWithInclude(x => x.idUsuarioSolicitante.Equals(idUsuario), "tipoSangre", "postulacion").ToList();
             //var lista = unitOfWork.AvisoRepository.GetMany(x => x.idUsuarioSolicitante.Equals(idUsuario));
 
             return Mapper.Map<IEnumerable<aviso>, IEnumerable<AvisoBE>>(lista);
@@ -38,7 +38,7 @@ namespace DonacionSangre.BusinessServices
 
         public AvisoBE ObtenerAvisoPorId(int id, int idUsuario)
         {
-            var entidad = unitOfWork.AvisoRepository.GetWithInclude(x => x.idAviso.Equals(id) && x.idUsuarioSolicitante.Equals(idUsuario), "tipoSangre").FirstOrDefault();
+            var entidad = unitOfWork.AvisoRepository.GetWithInclude(x => x.idAviso.Equals(id), "tipoSangre").FirstOrDefault();
             //var lista = unitOfWork.AvisoRepository.GetMany(x => x.idUsuarioSolicitante.Equals(idUsuario));
 
             return Mapper.Map<aviso, AvisoBE>(entidad);

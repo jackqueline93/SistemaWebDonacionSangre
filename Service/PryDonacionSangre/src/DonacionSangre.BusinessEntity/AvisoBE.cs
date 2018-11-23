@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DonacionSangre.BusinessEntity
 {
@@ -11,8 +12,10 @@ namespace DonacionSangre.BusinessEntity
         public Nullable<int> idRequerimiento { get; set; }
         public string Critico { get; set; }
         public decimal Cantidad { get; set; }
+        public int CantidadPostulante => Postulacion != null ? Postulacion.Count : 0;
         public string Descripcion { get; set; }
         public byte[] Imagen { get; set; }
         public string FechaVigencia { get; set; }
+        public ICollection<PostulacionBE> Postulacion { get; set; }
     }
 }
