@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { User } from 'src/app/shared/user.model';
 import { Observable } from 'rxjs';
+import { Aviso } from 'src/app/model/aviso.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 
@@ -43,6 +44,74 @@ export class UserService {
   getAvisos(token): Observable<any>{
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+token,'Access-Control-Allow-Origin':'*' });
     return this.http.get('/api/avisos',  { headers: reqHeader });
+
+  }
+
+  deleteAviso(id: number): Observable<any> {
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),'Access-Control-Allow-Origin':'*' });
+    return this.http.delete('/api/avisos'+ '/' + id,  { headers: reqHeader });
+  }
+
+  getTiposSangre(): Observable<any>{
+    var reqHeader = new HttpHeaders({ 'Access-Control-Allow-Origin':'*' });
+    return this.http.get('/api/general/tipoSangre',  { headers: reqHeader });
+
+  }
+ 
+  registerAviso(aviso : Aviso): Observable<any>{
+
+    const bodyAviso = {
+      Nombre: aviso.Nombre,
+      IdSangre: aviso.IdSangre,
+      Cantidad: aviso.Cantidad,
+      Descripcion: aviso.Descripcion,
+      FechaVigencia: aviso.FechaVigencia
+    }
+    const reqHeader = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),
+                              'Access-Control-Allow-Origin':'*',
+                              'Content-Type': 'application/json' })};
+    
+    return this.http.post('/api/avisos', bodyAviso, reqHeader);
+  }
+
+  getBuscarAviso(codigo: string): Observable<any>{
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),'Access-Control-Allow-Origin':'*' });
+    return this.http.get('/api/postulaciones'+'/'+codigo.toString(),  { headers: reqHeader });
+  }
+  getDetailAviso(codigo: string): Observable<any>{
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),'Access-Control-Allow-Origin':'*' });
+    return this.http.get('/api/avisos'+'/'+codigo.toString(),  { headers: reqHeader });
+  }
+
+  PostularAviso(idAviso: number){
+    const reqHeader = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),
+                              'Access-Control-Allow-Origin':'*',
+                              'Content-Type': 'application/json' })};
+      const bodyPostulacion = {
+        idAviso: idAviso
+      }
+      return this.http.post('/api/postulaciones', bodyPostulacion, reqHeader);
+
+
+  }
+  getAvisosAll(token): Observable<any>{
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+token,'Access-Control-Allow-Origin':'*' });
+    return this.http.get('/api/avisos/all',  { headers: reqHeader });
+
+  }
+
+  actualizarAviso(aviso : Aviso):  Observable<any>{
+    const bodyAviso = {
+      Nombre: aviso.Nombre,
+      IdSangre: aviso.IdSangre,
+      Cantidad: aviso.Cantidad,
+      Descripcion: aviso.Descripcion,
+      FechaVigencia: aviso.FechaVigencia
+    }
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),'Access-Control-Allow-Origin':'*' });
+    return this.http.put('/api/avisos/'+ localStorage.getItem("editAvisoId"), bodyAviso,  { headers: reqHeader });
 
   }
 }

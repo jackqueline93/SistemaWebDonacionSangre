@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'mydonacionsangre';
+  opened =true;
   events: string[] = [];
+
+  Logout(){
+    
+  }
 }

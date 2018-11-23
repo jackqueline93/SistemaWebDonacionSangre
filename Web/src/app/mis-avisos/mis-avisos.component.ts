@@ -18,7 +18,7 @@ export class MisAvisosComponent implements OnInit {
   getMisAvisos(){
     
       this.userService.getAvisos( localStorage.getItem('api/login')).subscribe(result => {
-              if(result.OperationCode != 200){
+            if(result.OperationCode != 200){
                 console.log(result);
             }else{
                 
@@ -28,5 +28,26 @@ export class MisAvisosComponent implements OnInit {
       });
     
   }
+
+  deleteAviso(aviso: Aviso): void {
+    this.userService.deleteAviso(aviso.IdAviso)
+      .subscribe( result => {
+        if(result.OperationCode != 200){
+            console.log(result);
+        }else{
+          this.getMisAvisos();
+        }
+      })
+  };
+
+  addAviso(): void {
+    this.router.navigate(['add-aviso']);
+  };
+
+  editAviso(aviso: Aviso): void {
+    localStorage.removeItem("editAvisoId");
+    localStorage.setItem("editAvisoId", aviso.IdAviso.toString());
+    this.router.navigate(['edit-aviso']);
+  };
 
 }
