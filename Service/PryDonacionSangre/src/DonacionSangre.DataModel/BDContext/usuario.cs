@@ -20,21 +20,21 @@ namespace DonacionSangre.DataModel.BDContext
             this.aviso = new HashSet<aviso>();
             this.formulario = new HashSet<formulario>();
             this.postulacion = new HashSet<postulacion>();
-            this.perfil = new HashSet<perfil>();
+            this.usuarioPerfil = new HashSet<usuarioPerfil>();
         }
     
         public int idUsuario { get; set; }
         public string correo { get; set; }
         public string password { get; set; }
         public string nombre { get; set; }
-        public Nullable<int> idPerfil { get; set; }
         public string direccion { get; set; }
         public string apellido { get; set; }
         public Nullable<System.DateTime> fecha_nacimiento { get; set; }
         public string genero { get; set; }
         public string dni { get; set; }
-        public Nullable<int> celular { get; set; }
+        public string celular { get; set; }
         public Nullable<int> idDepartamento { get; set; }
+        public Nullable<int> idCiudad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aviso> aviso { get; set; }
@@ -44,6 +44,6 @@ namespace DonacionSangre.DataModel.BDContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<postulacion> postulacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<perfil> perfil { get; set; }
+        public virtual ICollection<usuarioPerfil> usuarioPerfil { get; set; }
     }
 }

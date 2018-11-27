@@ -12,18 +12,13 @@ namespace DonacionSangre.DataModel.BDContext
     using System;
     using System.Collections.Generic;
     
-    public partial class perfil
+    public partial class usuarioPerfil
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public perfil()
-        {
-            this.usuarioPerfil = new HashSet<usuarioPerfil>();
-        }
-    
+        public int idUsuario { get; set; }
         public int idPerfil { get; set; }
-        public string nombre { get; set; }
+        public Nullable<System.DateTime> fechaRegistro { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<usuarioPerfil> usuarioPerfil { get; set; }
+        public virtual perfil perfil { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 }

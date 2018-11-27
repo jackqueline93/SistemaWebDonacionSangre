@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="DonacionModel.ciudad" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DonacionModel.departamento" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DonacionModel.formulario" Width="1.5" PointX="7.5" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DonacionModel.perfil" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="DonacionModel.postulacion" Width="1.5" PointX="9.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DonacionModel.requerimiento" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DonacionModel.tipoSangre" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
@@ -22,7 +21,10 @@
         <AssociationConnector Association="DonacionModel.FK_usuario_departamento" ManuallyRouted="false" />
         <AssociationConnector Association="DonacionModel.FK_formulario_usuario" ManuallyRouted="false" />
         <AssociationConnector Association="DonacionModel.FK_postulacion_usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="DonacionModel.usuarioPerfil" />
+        <EntityTypeShape EntityType="DonacionModel.perfil" Width="1.5" PointX="8.25" PointY="0.75" />
+        <EntityTypeShape EntityType="DonacionModel.usuarioPerfil" Width="1.5" PointX="10.5" PointY="1.625" />
+        <AssociationConnector Association="DonacionModel.FK_usuarioPerfil_perfil1" />
+        <AssociationConnector Association="DonacionModel.FK_usuarioPerfil_usuario1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

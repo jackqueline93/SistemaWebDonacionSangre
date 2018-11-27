@@ -40,10 +40,8 @@
             <PropertyRef Name="idFormulario" />
           </Key>
           <Property Name="idFormulario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="pregunta1" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="pregunta2" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="pregunta3" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="pregunta4" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="idPregunta" Type="int" Nullable="false" />
+          <Property Name="respuesta" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="idUsuario" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="perfil">
@@ -83,14 +81,14 @@
           <Property Name="correo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" />
-          <Property Name="idPerfil" Type="int" />
           <Property Name="direccion" Type="varchar" MaxLength="200" />
           <Property Name="apellido" Type="varchar" MaxLength="100" />
           <Property Name="fecha_nacimiento" Type="date" />
           <Property Name="genero" Type="varchar" MaxLength="10" />
           <Property Name="dni" Type="varchar" MaxLength="8" />
-          <Property Name="celular" Type="int" />
+          <Property Name="celular" Type="varchar" MaxLength="15" />
           <Property Name="idDepartamento" Type="int" />
+          <Property Name="idCiudad" Type="int" />
         </EntityType>
         <EntityType Name="usuarioPerfil">
           <Key>
@@ -99,6 +97,7 @@
           </Key>
           <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="idPerfil" Type="int" Nullable="false" />
+          <Property Name="fechaRegistro" Type="datetime" />
         </EntityType>
         <Association Name="FK_aviso_Requerimiento">
           <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="0..1" />
@@ -318,20 +317,10 @@
             <PropertyRef Name="idFormulario" />
           </Key>
           <Property Name="idFormulario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="pregunta1" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="pregunta2" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="pregunta3" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="pregunta4" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="idUsuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="usuario" Relationship="Self.FK_formulario_usuario" FromRole="formulario" ToRole="usuario" />
-        </EntityType>
-        <EntityType Name="perfil">
-          <Key>
-            <PropertyRef Name="idPerfil" />
-          </Key>
-          <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="usuario" Relationship="DonacionModel.usuarioPerfil" FromRole="perfil" ToRole="usuario" />
+          <Property Name="idPregunta" Type="Int32" Nullable="false" />
+          <Property Name="respuesta" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="postulacion">
           <Key>
@@ -367,19 +356,19 @@
           <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="idPerfil" Type="Int32" />
           <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="fecha_nacimiento" Type="DateTime" Precision="0" />
           <Property Name="genero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="dni" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="celular" Type="Int32" />
+          <Property Name="celular" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="idDepartamento" Type="Int32" />
           <NavigationProperty Name="aviso" Relationship="Self.FK_aviso_usuario" FromRole="usuario" ToRole="aviso" />
           <NavigationProperty Name="departamento" Relationship="Self.FK_usuario_departamento" FromRole="usuario" ToRole="departamento" />
           <NavigationProperty Name="formulario" Relationship="Self.FK_formulario_usuario" FromRole="usuario" ToRole="formulario" />
           <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_usuario" FromRole="usuario" ToRole="postulacion" />
-          <NavigationProperty Name="perfil" Relationship="DonacionModel.usuarioPerfil" FromRole="usuario" ToRole="perfil" />
+          <Property Name="idCiudad" Type="Int32" />
+          <NavigationProperty Name="usuarioPerfil" Relationship="DonacionModel.FK_usuarioPerfil_usuario1" FromRole="usuario" ToRole="usuarioPerfil" />
         </EntityType>
         <Association Name="FK_aviso_Requerimiento">
           <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="0..1" />
@@ -482,7 +471,6 @@
           <EntitySet Name="ciudad" EntityType="Self.ciudad" />
           <EntitySet Name="departamento" EntityType="Self.departamento" />
           <EntitySet Name="formulario" EntityType="Self.formulario" />
-          <EntitySet Name="perfil" EntityType="Self.perfil" />
           <EntitySet Name="postulacion" EntityType="Self.postulacion" />
           <EntitySet Name="requerimiento" EntityType="Self.requerimiento" />
           <EntitySet Name="tipoSangre" EntityType="Self.tipoSangre" />
@@ -519,14 +507,59 @@
             <End Role="usuario" EntitySet="usuario" />
             <End Role="postulacion" EntitySet="postulacion" />
           </AssociationSet>
-          <AssociationSet Name="usuarioPerfil" Association="DonacionModel.usuarioPerfil">
+          <EntitySet Name="perfil" EntityType="DonacionModel.perfil" />
+          <EntitySet Name="usuarioPerfil" EntityType="DonacionModel.usuarioPerfil" />
+          <AssociationSet Name="FK_usuarioPerfil_perfil1" Association="DonacionModel.FK_usuarioPerfil_perfil1">
             <End Role="perfil" EntitySet="perfil" />
+            <End Role="usuarioPerfil" EntitySet="usuarioPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuarioPerfil_usuario1" Association="DonacionModel.FK_usuarioPerfil_usuario1">
             <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuarioPerfil" EntitySet="usuarioPerfil" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="usuarioPerfil">
-          <End Type="DonacionModel.perfil" Role="perfil" Multiplicity="*" />
-          <End Type="DonacionModel.usuario" Role="usuario" Multiplicity="*" />
+        <EntityType Name="perfil">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuarioPerfil" Relationship="DonacionModel.FK_usuarioPerfil_perfil1" FromRole="perfil" ToRole="usuarioPerfil" />
+        </EntityType>
+        <EntityType Name="usuarioPerfil">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idPerfil" Type="Int32" Nullable="false" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="perfil" Relationship="DonacionModel.FK_usuarioPerfil_perfil1" FromRole="usuarioPerfil" ToRole="perfil" />
+          <NavigationProperty Name="usuario" Relationship="DonacionModel.FK_usuarioPerfil_usuario1" FromRole="usuarioPerfil" ToRole="usuario" />
+        </EntityType>
+        <Association Name="FK_usuarioPerfil_perfil1">
+          <End Type="DonacionModel.perfil" Role="perfil" Multiplicity="1" />
+          <End Type="DonacionModel.usuarioPerfil" Role="usuarioPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="perfil">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="usuarioPerfil">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuarioPerfil_usuario1">
+          <End Type="DonacionModel.usuario" Role="usuario" Multiplicity="1" />
+          <End Type="DonacionModel.usuarioPerfil" Role="usuarioPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="usuarioPerfil">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -570,20 +603,10 @@
           <EntitySetMapping Name="formulario">
             <EntityTypeMapping TypeName="DonacionModel.formulario">
               <MappingFragment StoreEntitySet="formulario">
+                <ScalarProperty Name="respuesta" ColumnName="respuesta" />
+                <ScalarProperty Name="idPregunta" ColumnName="idPregunta" />
                 <ScalarProperty Name="idFormulario" ColumnName="idFormulario" />
-                <ScalarProperty Name="pregunta1" ColumnName="pregunta1" />
-                <ScalarProperty Name="pregunta2" ColumnName="pregunta2" />
-                <ScalarProperty Name="pregunta3" ColumnName="pregunta3" />
-                <ScalarProperty Name="pregunta4" ColumnName="pregunta4" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="perfil">
-            <EntityTypeMapping TypeName="DonacionModel.perfil">
-              <MappingFragment StoreEntitySet="perfil">
-                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -615,11 +638,11 @@
           <EntitySetMapping Name="usuario">
             <EntityTypeMapping TypeName="DonacionModel.usuario">
               <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
                 <ScalarProperty Name="apellido" ColumnName="apellido" />
                 <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
@@ -630,15 +653,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="usuarioPerfil" TypeName="DonacionModel.usuarioPerfil" StoreEntitySet="usuarioPerfil">
-            <EndProperty Name="usuario">
-              <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-            </EndProperty>
-            <EndProperty Name="perfil">
-              <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
-            </EndProperty>
-          </AssociationSetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="perfil">
+            <EntityTypeMapping TypeName="DonacionModel.perfil">
+              <MappingFragment StoreEntitySet="perfil">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarioPerfil">
+            <EntityTypeMapping TypeName="DonacionModel.usuarioPerfil">
+              <MappingFragment StoreEntitySet="usuarioPerfil">
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

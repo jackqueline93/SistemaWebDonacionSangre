@@ -17,6 +17,7 @@ namespace DonacionSangre.DataModel.UnitOfWork
         private Repository<aviso> _avisoRepository;
         private Repository<postulacion> _postulacionRepository;
         private GeneralRepository _generalRepository;
+        private Repository<formulario> _formularioRepository;
 
         public UnitOfWork()
         {
@@ -61,6 +62,17 @@ namespace DonacionSangre.DataModel.UnitOfWork
                 return _generalRepository;
             }
         }
+
+        public Repository<formulario> FormularioRepository
+        {
+            get
+            {
+                if (this._formularioRepository == null)
+                    this._formularioRepository = new Repository<formulario>(_databaseFactory);
+                return _formularioRepository;
+            }
+        }
+
 
         #region Public member methods...
         /// <summary>

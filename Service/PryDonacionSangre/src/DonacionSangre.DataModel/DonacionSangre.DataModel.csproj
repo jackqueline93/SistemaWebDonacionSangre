@@ -92,6 +92,9 @@
     <Compile Include="BDContext\usuario.cs">
       <DependentUpon>DonacionBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BDContext\usuarioPerfil.cs">
+      <DependentUpon>DonacionBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneralRepository.cs" />
     <Compile Include="PostulacionRepository.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />

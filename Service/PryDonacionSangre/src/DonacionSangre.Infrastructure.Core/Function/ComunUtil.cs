@@ -10,9 +10,9 @@ namespace DonacionSangre.Infrastructure.Core.Function
             return Convert.ToDateTime(fecha, new CultureInfo("es-ES"));
         }
 
-        public static string ConvertirFecha(DateTime fecha)
+        public static string ConvertirFecha(DateTime? fecha)
         {
-            return fecha.Equals(DateTime.MinValue) ? string.Empty : fecha.ToString("dd/MM/yyyy");
+            return fecha == null || fecha.Equals(DateTime.MinValue) ? string.Empty : fecha?.ToString("dd/MM/yyyy");
         }
     }
 }

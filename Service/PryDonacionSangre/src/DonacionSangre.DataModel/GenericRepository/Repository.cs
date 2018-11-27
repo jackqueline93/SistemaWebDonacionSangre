@@ -67,6 +67,12 @@ namespace DonacionSangre.DataModel.GenericRepository
             DbSet.Add(entity);
         }
 
+        public virtual void InsertRange(IEnumerable<T> entity)
+        {
+            var dest = DataContext.Set<T>();
+            dest.AddRange(entity);
+        }
+
         /// <summary>
         /// Generic Delete method for the entities
         /// </summary>

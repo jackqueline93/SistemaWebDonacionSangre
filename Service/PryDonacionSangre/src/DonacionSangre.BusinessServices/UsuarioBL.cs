@@ -2,7 +2,12 @@
 using DonacionSangre.BusinessEntity;
 using DonacionSangre.DataModel.BDContext;
 using DonacionSangre.DataModel.UnitOfWork;
+using DonacionSangre.Infrastructure.Core.Constant;
 using DonacionSangre.Infrastructure.Core.ExceptionHandling;
+using DonacionSangre.Infrastructure.Core.Function;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DonacionSangre.BusinessServices
 {
@@ -12,6 +17,8 @@ namespace DonacionSangre.BusinessServices
         UsuarioBE ObtenerPorCorreo(string correo);
         UsuarioBE ObtenerPorId(int idUsuario);
         void Registrar(UsuarioBE entidad);
+        bool RegistrarDonante(int id, UsuarioBE entidad);
+        void RegistrarCuestionarioDonante(IEnumerable<FormularioBE> _formulario, int idUsuario);
     }
 
     public class UsuarioBL : IUsuarioBL
@@ -54,9 +61,54 @@ namespace DonacionSangre.BusinessServices
                 throw new ApiBusinessException("Correo {0} ya esta registrado.", usuario.correo);
             }
 
+            usuario.usuarioPerfil.Add(new usuarioPerfil() { idPerfil = GeneralConstant.PERFIL_SOLICITANTE, fechaRegistro = DateTime.Now });
             unitOfWork.UsuarioRepository.Insert(usuario);
             unitOfWork.Save();
         }
+        public bool RegistrarDonante(int id, UsuarioBE entidad)
+        {
+            var resultado = false;
 
+            if (id <= 0)
+                throw new ApiBusinessException("No existe id de usuario.");
+
+            if (entidad == null)
+                throw new ApiBusinessException("No hay datos a modificar.");
+
+            var entidadBd = unitOfWork.UsuarioRepository.GetByID(id);
+            if (entidadBd != null)
+            {
+                entidadBd.nombre = entidad.Nombre;
+                entidadBd.apellido = entidad.Apellido;
+                entidadBd.fecha_nacimiento = ComunUtil.ConvertirFecha(entidad.Fecha_nacimiento);
+                entidadBd.genero = entidad.Genero;
+                entidadBd.dni = entidad.Dni;
+                entidadBd.celular = entidad.Celular;
+                entidadBd.idDepartamento = entidad.IdDepartamento;
+                entidadBd.idCiudad = entidad.IdCiudad;
+                entidadBd.direccion = entidad.Direccion;
+                entidadBd.usuarioPerfil.Add(new usuarioPerfil() { idPerfil = GeneralConstant.PERFIL_DONANTE, fechaRegistro = DateTime.Now });
+
+                unitOfWork.UsuarioRepository.Update(entidadBd);
+                unitOfWork.Save();
+                resultado = true;
+            }
+            else
+            {
+                throw new ApiBusinessException("Usuario {0} no existe.", id);
+            }
+
+            return resultado;
+        }
+
+        public void RegistrarCuestionarioDonante(IEnumerable<FormularioBE> _formulario, int idUsuario)
+        {
+            foreach (var item in _formulario)
+                item.IdUsuario = idUsuario;
+
+            var formulario = Mapper.Map<IEnumerable<FormularioBE>, IEnumerable<formulario>>(_formulario);
+            unitOfWork.FormularioRepository.InsertRange(formulario);
+            unitOfWork.Save();
+        }
     }
 }

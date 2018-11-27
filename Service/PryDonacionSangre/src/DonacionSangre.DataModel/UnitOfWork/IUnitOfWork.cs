@@ -9,7 +9,7 @@ namespace DonacionSangre.DataModel.UnitOfWork
         Repository<aviso> AvisoRepository { get; }
         Repository<postulacion> PostulacionRepository { get; }
         GeneralRepository GeneralRepository { get; }
-
+        Repository<formulario> FormularioRepository { get; }
         void Save();
     }
 }

@@ -68,8 +68,6 @@ namespace DonacionSangre.BusinessServices
             if (entidad == null)
                 throw new ApiBusinessException("No hay datos a modificar.");
 
-            var aviso = Mapper.Map<AvisoBE, aviso>(entidad);
-
             var avisobd = unitOfWork.AvisoRepository.GetByID(id);
             if (avisobd != null)
             {

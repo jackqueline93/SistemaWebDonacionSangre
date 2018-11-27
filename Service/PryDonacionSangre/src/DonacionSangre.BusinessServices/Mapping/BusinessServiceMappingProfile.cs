@@ -8,8 +8,10 @@ namespace DonacionSangre.BusinessServices.Mapping
     {
         public BusinessServiceMappingProfile()
         {
-            CreateMap<usuario, UsuarioBE>();
-            CreateMap<UsuarioBE, usuario>();
+            CreateMap<usuario, UsuarioBE>()
+                .ForMember(x => x.Fecha_nacimiento, y => y.MapFrom(z => ComunUtil.ConvertirFecha(z.fecha_nacimiento)));
+            CreateMap<UsuarioBE, usuario>()
+                .ForMember(x => x.fecha_nacimiento, y => y.MapFrom(z => ComunUtil.ConvertirFecha(z.Fecha_nacimiento)));
 
             CreateMap<aviso, AvisoBE>()
                 .ForMember(x => x.FechaVigencia, y => y.MapFrom(z => ComunUtil.ConvertirFecha(z.fechaVigencia)));
@@ -23,6 +25,7 @@ namespace DonacionSangre.BusinessServices.Mapping
                 .ForMember(x => x.Codigo, y => y.MapFrom(z => z.idSangre.ToString()))
                 .ForMember(x => x.Descripcion, y => y.MapFrom(z => z.nombre));
 
+            CreateMap<FormularioBE, formulario>();
         }
     }
 }
