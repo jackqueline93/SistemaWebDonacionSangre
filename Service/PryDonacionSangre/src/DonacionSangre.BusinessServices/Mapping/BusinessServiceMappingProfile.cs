@@ -26,6 +26,14 @@ namespace DonacionSangre.BusinessServices.Mapping
                 .ForMember(x => x.Descripcion, y => y.MapFrom(z => z.nombre));
 
             CreateMap<FormularioBE, formulario>();
+
+            CreateMap<departamento, ItemBE>()
+                .ForMember(x => x.Codigo, y => y.MapFrom(z => z.idDepartamento.ToString()))
+                .ForMember(x => x.Descripcion, y => y.MapFrom(z => z.nombre));
+
+            CreateMap<ciudad, ItemBE>()
+                .ForMember(x => x.Codigo, y => y.MapFrom(z => z.idCiudad.ToString()))
+                .ForMember(x => x.Descripcion, y => y.MapFrom(z => z.nombre));
         }
     }
 }

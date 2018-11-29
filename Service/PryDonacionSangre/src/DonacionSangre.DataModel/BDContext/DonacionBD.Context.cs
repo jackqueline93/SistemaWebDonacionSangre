@@ -26,8 +26,6 @@ namespace DonacionSangre.DataModel.BDContext
         }
     
         public virtual DbSet<aviso> aviso { get; set; }
-        public virtual DbSet<ciudad> ciudad { get; set; }
-        public virtual DbSet<departamento> departamento { get; set; }
         public virtual DbSet<formulario> formulario { get; set; }
         public virtual DbSet<postulacion> postulacion { get; set; }
         public virtual DbSet<requerimiento> requerimiento { get; set; }
@@ -35,5 +33,7 @@ namespace DonacionSangre.DataModel.BDContext
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<perfil> perfil { get; set; }
         public virtual DbSet<usuarioPerfil> usuarioPerfil { get; set; }
+        public virtual DbSet<ciudad> ciudad { get; set; }
+        public virtual DbSet<departamento> departamento { get; set; }
     }
 }

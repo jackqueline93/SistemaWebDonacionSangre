@@ -14,16 +14,10 @@ namespace DonacionSangre.DataModel.BDContext
     
     public partial class ciudad
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ciudad()
-        {
-            this.departamento = new HashSet<departamento>();
-        }
-    
         public int idCiudad { get; set; }
         public string nombre { get; set; }
+        public int idDepartamento { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<departamento> departamento { get; set; }
+        public virtual departamento departamento { get; set; }
     }
 }

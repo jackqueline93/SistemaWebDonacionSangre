@@ -10,6 +10,7 @@ namespace DonacionSangre.DataModel
     {
         IEnumerable<tipoSangre> GetTipoSangre();
         IEnumerable<departamento> GetDepartamento();
+        IEnumerable<ciudad> GetCiudad(int idDepartamento);
     }
 
     public class GeneralRepository : IGeneralRepository
@@ -17,11 +18,13 @@ namespace DonacionSangre.DataModel
         private DonacionEntities _ctx;
         private readonly IDbSet<tipoSangre> _dbTipoSangre;
         private readonly IDbSet<departamento> _dbDepartamento;
+        private readonly IDbSet<ciudad> _dbCiudad;
 
         public GeneralRepository(IDatabaseFactory databaseFactory)
         {
             _dbTipoSangre = databaseFactory.Get().Set<tipoSangre>();
             _dbDepartamento = databaseFactory.Get().Set<departamento>();
+            _dbCiudad = databaseFactory.Get().Set<ciudad>();
         }
 
         public IEnumerable<tipoSangre> GetTipoSangre()
@@ -31,6 +34,10 @@ namespace DonacionSangre.DataModel
         public IEnumerable<departamento> GetDepartamento()
         {
             return _dbDepartamento.ToList();
+        }
+        public IEnumerable<ciudad> GetCiudad(int idDepartamento)
+        {
+            return _dbCiudad.Where(x => x.idDepartamento.Equals(idDepartamento))?.ToList();
         }
     }
 }

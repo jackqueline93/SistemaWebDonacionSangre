@@ -26,6 +26,7 @@
           </Key>
           <Property Name="idCiudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idDepartamento" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="departamento">
           <Key>
@@ -33,7 +34,6 @@
           </Key>
           <Property Name="idDepartamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="idCiudad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="formulario">
           <Key>
@@ -135,15 +135,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_departamento_ciudad">
-          <End Role="ciudad" Type="Self.ciudad" Multiplicity="1" />
-          <End Role="departamento" Type="Self.departamento" Multiplicity="*" />
+        <Association Name="FK_ciudad_departamento">
+          <End Role="departamento" Type="Self.departamento" Multiplicity="1" />
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ciudad">
-              <PropertyRef Name="idCiudad" />
+            <Principal Role="departamento">
+              <PropertyRef Name="idDepartamento" />
             </Principal>
-            <Dependent Role="departamento">
-              <PropertyRef Name="idCiudad" />
+            <Dependent Role="ciudad">
+              <PropertyRef Name="idDepartamento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -180,18 +180,6 @@
             </Principal>
             <Dependent Role="postulacion">
               <PropertyRef Name="idUsuarioDonante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_usuario_departamento">
-          <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
-          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="departamento">
-              <PropertyRef Name="idDepartamento" />
-            </Principal>
-            <Dependent Role="usuario">
-              <PropertyRef Name="idDepartamento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -242,9 +230,9 @@
             <End Role="usuario" EntitySet="usuario" />
             <End Role="aviso" EntitySet="aviso" />
           </AssociationSet>
-          <AssociationSet Name="FK_departamento_ciudad" Association="Self.FK_departamento_ciudad">
-            <End Role="ciudad" EntitySet="ciudad" />
+          <AssociationSet Name="FK_ciudad_departamento" Association="Self.FK_ciudad_departamento">
             <End Role="departamento" EntitySet="departamento" />
+            <End Role="ciudad" EntitySet="ciudad" />
           </AssociationSet>
           <AssociationSet Name="FK_formulario_usuario" Association="Self.FK_formulario_usuario">
             <End Role="usuario" EntitySet="usuario" />
@@ -257,10 +245,6 @@
           <AssociationSet Name="FK_postulacion_usuario" Association="Self.FK_postulacion_usuario">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="postulacion" EntitySet="postulacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_usuario_departamento" Association="Self.FK_usuario_departamento">
-            <End Role="departamento" EntitySet="departamento" />
-            <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
           <AssociationSet Name="FK_usuarioPerfil_perfil1" Association="Self.FK_usuarioPerfil_perfil1">
             <End Role="perfil" EntitySet="perfil" />
@@ -293,24 +277,6 @@
           <NavigationProperty Name="usuario" Relationship="Self.FK_aviso_usuario" FromRole="aviso" ToRole="usuario" />
           <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_aviso1" FromRole="aviso" ToRole="postulacion" />
           <Property Name="fechaVigencia" Type="DateTime" Precision="3" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ciudad">
-          <Key>
-            <PropertyRef Name="idCiudad" />
-          </Key>
-          <Property Name="idCiudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="departamento" Relationship="Self.FK_departamento_ciudad" FromRole="ciudad" ToRole="departamento" />
-        </EntityType>
-        <EntityType Name="departamento">
-          <Key>
-            <PropertyRef Name="idDepartamento" />
-          </Key>
-          <Property Name="idDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="idCiudad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ciudad" Relationship="Self.FK_departamento_ciudad" FromRole="departamento" ToRole="ciudad" />
-          <NavigationProperty Name="usuario" Relationship="Self.FK_usuario_departamento" FromRole="departamento" ToRole="usuario" />
         </EntityType>
         <EntityType Name="formulario">
           <Key>
@@ -364,7 +330,6 @@
           <Property Name="celular" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="idDepartamento" Type="Int32" />
           <NavigationProperty Name="aviso" Relationship="Self.FK_aviso_usuario" FromRole="usuario" ToRole="aviso" />
-          <NavigationProperty Name="departamento" Relationship="Self.FK_usuario_departamento" FromRole="usuario" ToRole="departamento" />
           <NavigationProperty Name="formulario" Relationship="Self.FK_formulario_usuario" FromRole="usuario" ToRole="formulario" />
           <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_usuario" FromRole="usuario" ToRole="postulacion" />
           <Property Name="idCiudad" Type="Int32" />
@@ -418,30 +383,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_departamento_ciudad">
-          <End Role="ciudad" Type="Self.ciudad" Multiplicity="1" />
-          <End Role="departamento" Type="Self.departamento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ciudad">
-              <PropertyRef Name="idCiudad" />
-            </Principal>
-            <Dependent Role="departamento">
-              <PropertyRef Name="idCiudad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_usuario_departamento">
-          <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
-          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="departamento">
-              <PropertyRef Name="idDepartamento" />
-            </Principal>
-            <Dependent Role="usuario">
-              <PropertyRef Name="idDepartamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_formulario_usuario">
           <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
           <End Role="formulario" Type="Self.formulario" Multiplicity="*" />
@@ -468,8 +409,6 @@
         </Association>
         <EntityContainer Name="DonacionEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="aviso" EntityType="Self.aviso" />
-          <EntitySet Name="ciudad" EntityType="Self.ciudad" />
-          <EntitySet Name="departamento" EntityType="Self.departamento" />
           <EntitySet Name="formulario" EntityType="Self.formulario" />
           <EntitySet Name="postulacion" EntityType="Self.postulacion" />
           <EntitySet Name="requerimiento" EntityType="Self.requerimiento" />
@@ -491,14 +430,6 @@
             <End Role="aviso" EntitySet="aviso" />
             <End Role="postulacion" EntitySet="postulacion" />
           </AssociationSet>
-          <AssociationSet Name="FK_departamento_ciudad" Association="Self.FK_departamento_ciudad">
-            <End Role="ciudad" EntitySet="ciudad" />
-            <End Role="departamento" EntitySet="departamento" />
-          </AssociationSet>
-          <AssociationSet Name="FK_usuario_departamento" Association="Self.FK_usuario_departamento">
-            <End Role="departamento" EntitySet="departamento" />
-            <End Role="usuario" EntitySet="usuario" />
-          </AssociationSet>
           <AssociationSet Name="FK_formulario_usuario" Association="Self.FK_formulario_usuario">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="formulario" EntitySet="formulario" />
@@ -516,6 +447,12 @@
           <AssociationSet Name="FK_usuarioPerfil_usuario1" Association="DonacionModel.FK_usuarioPerfil_usuario1">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="usuarioPerfil" EntitySet="usuarioPerfil" />
+          </AssociationSet>
+          <EntitySet Name="ciudad" EntityType="DonacionModel.ciudad" />
+          <EntitySet Name="departamento" EntityType="DonacionModel.departamento" />
+          <AssociationSet Name="FK_ciudad_departamento" Association="DonacionModel.FK_ciudad_departamento">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="ciudad" EntitySet="ciudad" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="perfil">
@@ -561,6 +498,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idDepartamento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="departamento" Relationship="DonacionModel.FK_ciudad_departamento" FromRole="ciudad" ToRole="departamento" />
+        </EntityType>
+        <EntityType Name="departamento">
+          <Key>
+            <PropertyRef Name="idDepartamento" />
+          </Key>
+          <Property Name="idDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ciudad" Relationship="DonacionModel.FK_ciudad_departamento" FromRole="departamento" ToRole="ciudad" />
+        </EntityType>
+        <Association Name="FK_ciudad_departamento">
+          <End Type="DonacionModel.departamento" Role="departamento" Multiplicity="1" />
+          <End Type="DonacionModel.ciudad" Role="ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departamento">
+              <PropertyRef Name="idDepartamento" />
+            </Principal>
+            <Dependent Role="ciudad">
+              <PropertyRef Name="idDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -580,23 +546,6 @@
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="imagen" ColumnName="imagen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ciudad">
-            <EntityTypeMapping TypeName="DonacionModel.ciudad">
-              <MappingFragment StoreEntitySet="ciudad">
-                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="departamento">
-            <EntityTypeMapping TypeName="DonacionModel.departamento">
-              <MappingFragment StoreEntitySet="departamento">
-                <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -667,6 +616,23 @@
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ciudad">
+            <EntityTypeMapping TypeName="DonacionModel.ciudad">
+              <MappingFragment StoreEntitySet="ciudad">
+                <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departamento">
+            <EntityTypeMapping TypeName="DonacionModel.departamento">
+              <MappingFragment StoreEntitySet="departamento">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

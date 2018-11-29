@@ -17,17 +17,25 @@ namespace DonacionSangre.Rest.Controllers
 
         [HttpGet]
         [Route("tipoSangre")]
-        public IHttpActionResult ObtenerTipoSangre()
+        public IHttpActionResult ListarTipoSangre()
         {
-            var lista = generalBL.ObtenerTipoSangre();
+            var lista = generalBL.ListarTipoSangre();
             return Ok(new ApiResult() { Data = lista, OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
 
         [HttpGet]
         [Route("departamento")]
-        public IHttpActionResult ObtenerDepartamento()
+        public IHttpActionResult ListarDepartamento()
         {
-            var lista = generalBL.ObtenerDepartamento();
+            var lista = generalBL.ListarDepartamento();
+            return Ok(new ApiResult() { Data = lista, OperationCode = HttpStatusCode.OK.GetHashCode() });
+        }
+
+        [HttpGet]
+        [Route("ciudad/{idDepartamento}")]
+        public IHttpActionResult ListarCiudad(int idDepartamento)
+        {
+            var lista = generalBL.ListarCiudad(idDepartamento);
             return Ok(new ApiResult() { Data = lista, OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
     }
