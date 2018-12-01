@@ -87,7 +87,10 @@ namespace DonacionSangre.BusinessServices
                 entidadBd.idDepartamento = entidad.IdDepartamento;
                 entidadBd.idCiudad = entidad.IdCiudad;
                 entidadBd.direccion = entidad.Direccion;
-                entidadBd.usuarioPerfil.Add(new usuarioPerfil() { idPerfil = GeneralConstant.PERFIL_DONANTE, fechaRegistro = DateTime.Now });
+
+                var perfilDonante = entidadBd.usuarioPerfil.Any(x => x.idPerfil.Equals(GeneralConstant.PERFIL_DONANTE));
+                if (!perfilDonante)
+                    entidadBd.usuarioPerfil.Add(new usuarioPerfil() { idPerfil = GeneralConstant.PERFIL_DONANTE, fechaRegistro = DateTime.Now });
 
                 unitOfWork.UsuarioRepository.Update(entidadBd);
                 unitOfWork.Save();
