@@ -91,6 +91,7 @@
           <Property Name="celular" Type="varchar" MaxLength="15" />
           <Property Name="idDepartamento" Type="int" />
           <Property Name="idCiudad" Type="int" />
+          <Property Name="idSangre" Type="int" />
         </EntityType>
         <EntityType Name="usuarioPerfil">
           <Key>
@@ -338,6 +339,7 @@
           <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_usuario" FromRole="usuario" ToRole="postulacion" />
           <Property Name="idCiudad" Type="Int32" />
           <NavigationProperty Name="usuarioPerfil" Relationship="DonacionModel.FK_usuarioPerfil_usuario1" FromRole="usuario" ToRole="usuarioPerfil" />
+          <Property Name="idSangre" Type="Int32" />
         </EntityType>
         <Association Name="FK_aviso_Requerimiento">
           <End Role="requerimiento" Type="Self.requerimiento" Multiplicity="0..1" />
@@ -593,6 +595,7 @@
           <EntitySetMapping Name="usuario">
             <EntityTypeMapping TypeName="DonacionModel.usuario">
               <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="idSangre" ColumnName="idSangre" />
                 <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="correo" ColumnName="correo" />

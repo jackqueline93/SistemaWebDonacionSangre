@@ -18,6 +18,7 @@ namespace DonacionSangre.BusinessEntity
         public string Celular { get; set; }
         public Nullable<int> IdDepartamento { get; set; }
         public Nullable<int> IdCiudad { get; set; }
+        public Nullable<int> idSangre { get; set; }
         public ICollection<UsuarioPerfilBE> UsuarioPerfil { get; set; }
     }
 }

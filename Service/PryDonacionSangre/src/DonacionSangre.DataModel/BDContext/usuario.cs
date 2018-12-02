@@ -35,6 +35,7 @@ namespace DonacionSangre.DataModel.BDContext
         public string celular { get; set; }
         public Nullable<int> idDepartamento { get; set; }
         public Nullable<int> idCiudad { get; set; }
+        public Nullable<int> idSangre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aviso> aviso { get; set; }

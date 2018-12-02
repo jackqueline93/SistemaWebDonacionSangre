@@ -87,6 +87,7 @@ namespace DonacionSangre.BusinessServices
                 entidadBd.idDepartamento = entidad.IdDepartamento;
                 entidadBd.idCiudad = entidad.IdCiudad;
                 entidadBd.direccion = entidad.Direccion;
+                entidadBd.idSangre = entidad.idSangre;
 
                 var perfilDonante = entidadBd.usuarioPerfil.Any(x => x.idPerfil.Equals(GeneralConstant.PERFIL_DONANTE));
                 if (!perfilDonante)

@@ -25,11 +25,7 @@ namespace DonacionSangre.Infrastructure.Core.Function
         public static void SendMail(string mailTo, string mailCc, string mailFrom, string mailFromDisplay, string subject, string mailBody)
         {
             string[] stringSeparators = new string[] { ",", ";" };
-            var host = string.Empty;
-            var credentialUser = string.Empty;
-            var credentialPassword = string.Empty;
-            var port = 0;
-
+         
             using (var mail = new MailMessage())
             {
                 mail.Body = mailBody;
