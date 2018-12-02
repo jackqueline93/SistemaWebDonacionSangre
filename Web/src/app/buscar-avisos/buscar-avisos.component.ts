@@ -31,6 +31,8 @@ export class BuscarAvisosComponent implements OnInit {
   searchText: string;
 
   ngOnInit() {
+    this.tiposSangre=[];
+    this.avisos=[];
     this.getTiposSangre();
     this.getMisAvisos();
   }

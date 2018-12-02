@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatFormFieldModule, MatCardModule, MatInputModule, MatDialogModule, MatDividerModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule,MatNativeDateModule,  MatFormFieldModule, MatCardModule, MatInputModule, MatDialogModule, MatDividerModule} from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { BuscarAvisosComponent } from './buscar-avisos/buscar-avisos.component';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +19,15 @@ import {MatSelectModule} from '@angular/material/select';
 import { AvisoFilterPipe } from 'src/app/buscar-avisos/aviso-filter.pipe';
 import { DetailAvisoComponent } from 'src/app/buscar-avisos/detail-aviso/detail-aviso.component';
 import { EditAvisoComponent } from './mis-avisos/edit-aviso/edit-aviso.component';
+import {ToasterService} from './toaster-service.service';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { VerPostulanteComponent } from 'src/app/mis-avisos/ver-postulante/ver-postulante.component';
+import { FichaDonanteComponent } from './ficha-donante/ficha-donante.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatRadioModule} from '@angular/material/radio';
+
+
 
 @NgModule({
   declarations: [
@@ -31,24 +40,30 @@ import { EditAvisoComponent } from './mis-avisos/edit-aviso/edit-aviso.component
     AddAvisoComponent,
     AvisoFilterPipe,
     DetailAvisoComponent,
-    EditAvisoComponent
+    EditAvisoComponent,
+    VerPostulanteComponent,
+    FichaDonanteComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatRadioModule,
     MatSidenavModule,
     MatFormFieldModule,
     MatIconModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatExpansionModule,
     FormsModule,
     MatCardModule,
+    MatStepperModule,
     MatDialogModule,
     MatSelectModule,
     MatDividerModule,
+    MatDatepickerModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
@@ -57,7 +72,7 @@ import { EditAvisoComponent } from './mis-avisos/edit-aviso/edit-aviso.component
   entryComponents:[
    DetailAvisoComponent
   ],
-  providers: [UserService, AuthGuard],
+  providers: [UserService, AuthGuard, ToasterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

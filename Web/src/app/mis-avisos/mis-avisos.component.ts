@@ -49,5 +49,10 @@ export class MisAvisosComponent implements OnInit {
     localStorage.setItem("editAvisoId", aviso.IdAviso.toString());
     this.router.navigate(['edit-aviso']);
   };
+  verPostulantes(id){
+    localStorage.removeItem("verAvisoId");
+    localStorage.setItem("verAvisoId", id.toString());
+    this.router.navigate(['ver-postulante']);
+  }
 
 }

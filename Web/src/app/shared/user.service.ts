@@ -57,6 +57,11 @@ export class UserService {
     return this.http.get('/api/general/tipoSangre',  { headers: reqHeader });
 
   }
+  getPostulantes(token, idAviso): Observable<any>{
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+token,'Access-Control-Allow-Origin':'*' });
+    return this.http.get('/api/avisos/'+idAviso+'/postulante',  { headers: reqHeader });
+
+  }
  
   registerAviso(aviso : Aviso): Observable<any>{
 
@@ -114,4 +119,25 @@ export class UserService {
     return this.http.put('/api/avisos/'+ localStorage.getItem("editAvisoId"), bodyAviso,  { headers: reqHeader });
 
   }
+
+  logout(){
+    var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),'Access-Control-Allow-Origin':'*' });
+    return this.http.put('/api/seguridad/logout',   { headers: reqHeader });
+
+  }
+
+  getDepartamentos(): Observable<any>{
+    var reqHeader = new HttpHeaders({ 'Access-Control-Allow-Origin':'*' });
+    return this.http.get('/api/general/departamento',  { headers: reqHeader });
+
+  }
+
+  getCiudades(idDepartamento : string): Observable<any>{
+    var reqHeader = new HttpHeaders({ 'Access-Control-Allow-Origin':'*' });
+    return this.http.get('/api/general/ciudad/'+idDepartamento,  { headers: reqHeader });
+
+  }
+
+
+
 }

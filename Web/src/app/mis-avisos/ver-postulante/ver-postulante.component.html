@@ -1,0 +1,33 @@
+<!--<mat-card class="example-card" *ngFor="let postulante of postulantes.Data">
+  <mat-card-header>
+    <mat-card-title><h1>{{postulante.Nombre}}</h1><h1> {{postulante.Apellido}}</h1></mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <p>
+      {{postulante.Genero}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="inner">
+        <button (click)="animateMe()">Detalles</button>
+        <div>
+          <p  [@myfirstanimation]='state'> {{postulante.Celular}}</p>
+       </div>
+   </div>
+  </mat-card-actions>
+
+</mat-card>-->
+
+<mat-accordion *ngFor="let postulante of postulantes.Data" class="inner">
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h1>{{postulante.Nombre}}</h1><h1> {{postulante.Apellido}}</h1>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p> {{postulante.Genero}}</p>
+    <p> {{postulante.Celular}}</p>
+  </mat-expansion-panel>
+</mat-accordion>

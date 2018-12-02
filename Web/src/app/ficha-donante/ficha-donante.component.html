@@ -1,0 +1,126 @@
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup" (ngSubmit)="form1()" #formone="ngForm">
+      <ng-template matStepLabel>Datos Generales</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Nombres" formControlName="nombre" required>
+      </mat-form-field> 
+      <mat-divider></mat-divider>    
+      <mat-form-field>
+        <input matInput placeholder="Apellidos" formControlName="apellido" required>
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <mat-form-field>
+        <input type="date" matInput placeholder="FechaNacimiento"  formControlName="fecha_nacimiento" required >
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <mat-form-field>  
+            <select matNativeControl    placeholder="Género"  formControlName="genero" required>
+                <option value="F">F</option>
+                <option value="M">M</option>
+              </select>
+      </mat-form-field>
+      <mat-form-field>
+        <input  matInput placeholder="DNI"  formControlName="dni" required >
+      </mat-form-field>
+      <mat-form-field>
+          <input  matInput placeholder="Celular"  formControlName="celular" required >
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <mat-form-field>
+            <mat-select placeholder="Departamento" (selectionChange)="doCiudad($event)" formControlName="idDepartamento" required>
+              <mat-option *ngFor="let departamento of departamentos.Data" [value]="departamento.Codigo">
+                {{departamento.Descripcion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+           <mat-form-field>
+             <mat-select placeholder="Ciudad"  formControlName="idCiudad" ng-disabled="true" required>
+                <mat-option *ngFor="let ciudad of ciudades.Data" [value]="ciudad.Codigo">
+                  {{ciudad.Descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-divider></mat-divider>
+            <mat-form-field>
+                <input  matInput placeholder="Dirección completa"  formControlName="direccion" required >
+            </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup" (ngSubmit)="form2()" #formtwo="ngForm">
+      <ng-template  >Tipos de Sangre</ng-template>
+        <mat-radio-group  formControlName="tipoSangre" required>
+            <img src="assets/img/O-.PNG">
+          <mat-radio-button value="1">O-</mat-radio-button>
+          <img src="assets/img/O+.PNG">
+          <mat-radio-button value="2">O+</mat-radio-button>
+          <img src="assets/img/A-.PNG">
+          <mat-radio-button value="3">A-</mat-radio-button>
+          <img src="assets/img/A+.PNG">
+          <mat-radio-button value="4">A+</mat-radio-button>
+          <mat-divider></mat-divider>
+          <img src="assets/img/B-.PNG">
+          <mat-radio-button value="5">B-</mat-radio-button>
+          <img src="assets/img/B+.PNG">
+          <mat-radio-button value="6">B+</mat-radio-button>
+          <img src="assets/img/AB-.PNG">
+          <mat-radio-button value="7">AB-</mat-radio-button>
+          <img src="assets/img/AB+.PNG">
+          <mat-radio-button value="8">AB+</mat-radio-button>
+        </mat-radio-group>
+      <div>
+        <button mat-button matStepperPrevious>Regresar</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step  [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup" (ngSubmit)="form3()" #formthree="ngForm">
+        <ng-template matStepLabel >Cuestionario</ng-template>
+            <mat-radio-group  formControlName="firstQuestion" required>
+                <p>¿Padece de enfermedades del corazón?</p>
+              <mat-radio-button value="S">SI</mat-radio-button>
+              <mat-radio-button value="N">NO</mat-radio-button>
+            </mat-radio-group>
+            <mat-divider></mat-divider>
+            <mat-radio-group  formControlName="secondQuestion" required>
+                <p>¿Padece de enfermedades del corazón?</p>
+              <mat-radio-button value="S">SI</mat-radio-button>
+              <mat-radio-button value="N">NO</mat-radio-button>
+            </mat-radio-group>
+            <mat-divider></mat-divider>
+            <mat-radio-group  formControlName="tercerQuestion" required>
+                <p>¿Padece de enfermedades del corazón?</p>
+              <mat-radio-button value="S">SI</mat-radio-button>
+              <mat-radio-button value="N">NO</mat-radio-button>
+            </mat-radio-group>
+            <mat-divider></mat-divider>
+            <mat-radio-group  formControlName="cuartoQuestion" required>
+                <p>¿Padece de enfermedades del corazón?</p>
+              <mat-radio-button value="S">SI</mat-radio-button>
+              <mat-radio-button value="N">NO</mat-radio-button>
+            </mat-radio-group>
+            <mat-divider></mat-divider>
+            <mat-radio-group  formControlName="quintoQuestion" required>
+                <p>¿Padece de enfermedades del corazón?</p>
+              <mat-radio-button value="S">SI</mat-radio-button>
+              <mat-radio-button value="N">NO</mat-radio-button>
+            </mat-radio-group>
+            <mat-divider></mat-divider>
+              <div>
+                <button mat-button matStepperPrevious>Regresar</button>
+                <button mat-button (click)="stepper.reset()">RESET</button>
+                <!--<button mat-button type="button" (click)="formone.ngSubmit.emit();formtwo.ngSubmit.emit()">
+                    submit
+                    </button>-->
+                    <button mat-button type="button" (click)="guardar()">
+                        Guardar
+                        </button>
+              </div>
+       </form>   
+  </mat-step>
+</mat-horizontal-stepper>
