@@ -14,8 +14,11 @@ namespace DonacionSangre.BusinessEntity
         public decimal Cantidad { get; set; }
         public int CantidadPostulante => Postulacion != null ? Postulacion.Count : 0;
         public string Descripcion { get; set; }
-        public byte[] Imagen { get; set; }
+        //public byte[] Imagen { get; set; }
         public string FechaVigencia { get; set; }
+        public int IdDepartamento { get; set; }
+        public int IdCiudad { get; set; }
+
         public ICollection<PostulacionBE> Postulacion { get; set; }
     }
 }

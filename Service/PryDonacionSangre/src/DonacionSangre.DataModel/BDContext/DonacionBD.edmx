@@ -19,6 +19,8 @@
           <Property Name="descripcion" Type="varchar" MaxLength="200" />
           <Property Name="imagen" Type="image" />
           <Property Name="fechaVigencia" Type="datetime" Nullable="false" />
+          <Property Name="idDepartamento" Type="int" Nullable="false" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ciudad">
           <Key>
@@ -277,6 +279,8 @@
           <NavigationProperty Name="usuario" Relationship="Self.FK_aviso_usuario" FromRole="aviso" ToRole="usuario" />
           <NavigationProperty Name="postulacion" Relationship="Self.FK_postulacion_aviso1" FromRole="aviso" ToRole="postulacion" />
           <Property Name="fechaVigencia" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="idDepartamento" Type="Int32" Nullable="false" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="formulario">
           <Key>
@@ -536,6 +540,8 @@
           <EntitySetMapping Name="aviso">
             <EntityTypeMapping TypeName="DonacionModel.aviso">
               <MappingFragment StoreEntitySet="aviso">
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+                <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
                 <ScalarProperty Name="fechaVigencia" ColumnName="fechaVigencia" />
                 <ScalarProperty Name="idAviso" ColumnName="idAviso" />
                 <ScalarProperty Name="idUsuarioSolicitante" ColumnName="idUsuarioSolicitante" />

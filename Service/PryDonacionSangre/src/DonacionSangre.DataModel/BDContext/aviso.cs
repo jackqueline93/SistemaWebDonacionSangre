@@ -30,6 +30,8 @@ namespace DonacionSangre.DataModel.BDContext
         public string descripcion { get; set; }
         public byte[] imagen { get; set; }
         public System.DateTime fechaVigencia { get; set; }
+        public int idDepartamento { get; set; }
+        public int idCiudad { get; set; }
     
         public virtual requerimiento requerimiento { get; set; }
         public virtual tipoSangre tipoSangre { get; set; }

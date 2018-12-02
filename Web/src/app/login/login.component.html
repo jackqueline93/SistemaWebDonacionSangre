@@ -1,7 +1,9 @@
 <div *ngIf="isLoginError" class="red-text center error-message">
   <i class="material-icons">error</i> Incorrect username or password
 </div>
+<div id="login-form">
 <form #loginForm="ngForm" class="col s12 white"   (ngSubmit)="OnSubmit(UserName.value,Password.value)" >
+  <h3>Iniciar Sesión</h3>
   <div class="row">
     <div class="input-field col s12">
       <i class="material-icons prefix">account_circle</i>
@@ -20,3 +22,4 @@
        </div>
      </div>
 </form>
+</div>

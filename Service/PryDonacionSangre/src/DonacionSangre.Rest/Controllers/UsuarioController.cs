@@ -1,6 +1,7 @@
 ﻿using DonacionSangre.BusinessEntity;
 using DonacionSangre.BusinessServices;
 using DonacionSangre.Infrastructure.Core;
+using DonacionSangre.Infrastructure.Core.Function;
 using DonacionSangre.Infrastructure.Rest;
 using System.Collections.Generic;
 using System.Net;
