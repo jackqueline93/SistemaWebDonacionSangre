@@ -34,7 +34,7 @@ namespace DonacionSangre.Rest.Result
             {
                 _result = GetApiResult(false);
                 _result.OperationCode = 900;
-                this._response = this._request.CreateResponse(HttpStatusCode.BadRequest, _result);
+                this._response = this._request.CreateResponse(HttpStatusCode.OK, _result);
             }
             else if (this._exception is SqlException)
             {
