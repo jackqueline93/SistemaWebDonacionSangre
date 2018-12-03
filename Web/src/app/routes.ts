@@ -8,6 +8,7 @@ import { AddAvisoComponent } from 'src/app/mis-avisos/add-aviso/add-aviso.compon
 import { EditAvisoComponent } from 'src/app/mis-avisos/edit-aviso/edit-aviso.component';
 import { VerPostulanteComponent } from 'src/app/mis-avisos/ver-postulante/ver-postulante.component';
 import { FichaDonanteComponent } from './ficha-donante/ficha-donante.component';
+import { AppComponent } from './app.component';
 
 export const appRoutes: Routes=[
     { path: 'home', component: HomeComponent  },
@@ -18,5 +19,6 @@ export const appRoutes: Routes=[
     { path: 'add-aviso', component: AddAvisoComponent},
     { path: 'edit-aviso', component: EditAvisoComponent},
     { path: 'ver-postulante', component: VerPostulanteComponent},
-    { path: 'ficha-donante', component: FichaDonanteComponent}
+    { path: 'ficha-donante', component: FichaDonanteComponent},
+    { path: 'app', component: AppComponent}
   ]

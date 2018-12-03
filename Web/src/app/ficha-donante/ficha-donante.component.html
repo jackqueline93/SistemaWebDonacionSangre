@@ -52,7 +52,7 @@
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup" (ngSubmit)="form2()" #formtwo="ngForm">
-      <ng-template  >Tipos de Sangre</ng-template>
+      <ng-template matStepLabel >Tipos de Sangre</ng-template>
         <mat-radio-group  formControlName="tipoSangre" required>
             <img src="assets/img/O-.PNG">
           <mat-radio-button value="1">O-</mat-radio-button>
@@ -113,7 +113,7 @@
             <mat-divider></mat-divider>
               <div>
                 <button mat-button matStepperPrevious>Regresar</button>
-                <button mat-button (click)="stepper.reset()">RESET</button>
+                <!--<button mat-button (click)="stepper.reset()">RESET</button>-->
                 <!--<button mat-button type="button" (click)="formone.ngSubmit.emit();formtwo.ngSubmit.emit()">
                     submit
                     </button>-->

@@ -138,6 +138,24 @@ export class UserService {
 
   }
 
+  registrarDonante(): Observable<any>{
+    const reqHeader = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),
+                              'Access-Control-Allow-Origin':'*',
+                              'Content-Type': 'application/json' })};
+                           
+    return this.http.post('/api/usuarios/donante', JSON.parse(localStorage.getItem('form1')), reqHeader);
+  }
+
+  registrarCuestionario(): Observable<any>{
+    const reqHeader = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),
+                              'Access-Control-Allow-Origin':'*',
+                              'Content-Type': 'application/json' })};
+    
+    return this.http.post('/api/usuarios/donante/cuestionario',JSON.parse(localStorage.getItem('form2')), reqHeader);
+  }
+
 
 
 }
