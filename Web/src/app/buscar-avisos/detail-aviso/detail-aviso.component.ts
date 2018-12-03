@@ -12,9 +12,9 @@ export class DetailAvisoComponent implements OnInit {
   constructor(private userService : UserService,
     public dialogRef: MatDialogRef<DetailAvisoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
-  
+
     ngOnInit(){
-      
+
     }
 
     Postular(idAviso){
@@ -22,6 +22,8 @@ export class DetailAvisoComponent implements OnInit {
         if(data.OperationCode== 200)
         {
            alert('Su registro fue exitosa')
+        }else if(data.OperationCode== 900){
+          alert(data.Message)
         }
       });
     }

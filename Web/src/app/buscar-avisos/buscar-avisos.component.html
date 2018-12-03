@@ -36,7 +36,7 @@
   </div>-->
 <!--<mat-card class="example-card" *ngFor="let aviso of avisos.Data | filter : searchText">
     <mat-card-header>
-      <mat-card-title>{{aviso.Nombre}}</mat-card-title>     
+      <mat-card-title>{{aviso.Nombre}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <p>
@@ -52,20 +52,20 @@
 <div class="col-md-12 mx-auto">
     <h4>Grupo de Sangre</h4>
     <!--<input type="select" class="form-control" placeholder="Search tipo de sangre" [(ngModel)]="searchText" (input)="Search()"/>-->
-    <select matNativeControl   [(ngModel)]="searchText" (input)="Search()" value="2">
-        <option value="2">0-</option>
-        <option value="3">0+</option>
-        <option value="4">A-</option>
-        <option value="5">A+</option>
-        <option value="6">B-</option>
-        <option value="7">B+</option>
-        <option value="8">AB</option>
-        <option value="9">AB+</option>
+    <select matNativeControl   [(ngModel)]="searchText" (change)="Search()" value="2">
+        <option value="1">0-</option>
+        <option value="2">0+</option>
+        <option value="3">A-</option>
+        <option value="4">A+</option>
+        <option value="5">B-</option>
+        <option value="6">B+</option>
+        <option value="7">AB</option>
+        <option value="8">AB+</option>
       </select>
 </div>
 <div *ngFor="let aviso of avisos.Data ">
     <mat-card-header>
-        <mat-card-title>{{aviso.Nombre}}</mat-card-title>     
+        <mat-card-title>{{aviso.Nombre}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p>

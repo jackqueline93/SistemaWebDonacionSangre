@@ -5,28 +5,28 @@
 </mat-card-header>
 <mat-dialog-content>{{data.Data.Descripcion}}</mat-dialog-content>
 <div  [ngSwitch]="data.Data.IdSangre">
-    <div *ngSwitchCase="'2'">
+    <div *ngSwitchCase="'1'">
         <p>0-</p>
     </div>
-    <div *ngSwitchCase="'3'">
+    <div *ngSwitchCase="'2'">
       <p>0+</p>
    </div>
-    <div *ngSwitchCase="'4'">
+    <div *ngSwitchCase="'3'">
       <p>A-</p>
     </div>
-    <div *ngSwitchCase="'5'">
+    <div *ngSwitchCase="'4'">
       <p>A+</p>
     </div>
-    <div *ngSwitchCase="'6'">
+    <div *ngSwitchCase="'5'">
       <p>B-</p>
     </div>
-    <div *ngSwitchCase="'7'">
+    <div *ngSwitchCase="'6'">
       <p>B+</p>
     </div>
-    <div *ngSwitchCase="'8'">
+    <div *ngSwitchCase="'7'">
       <p>AB</p>
     </div>
-    <div *ngSwitchCase="'9'">
+    <div *ngSwitchCase="'8'">
       <p>AB+</p>
     </div>
 </div>
