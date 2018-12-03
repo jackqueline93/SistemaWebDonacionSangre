@@ -72,5 +72,15 @@ namespace DonacionSangre.Rest.Controllers
             var entidad = avisoBL.ListarPostulante(id);
             return Ok(new ApiResult() { Data = entidad, OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("{idUsuarioDonante}/donante")]
+        public IHttpActionResult ListarAvisosPorDonante(int idUsuarioDonante)
+        {
+            var entidad = avisoBL.ListarAvisosPorDonante(idUsuarioDonante);
+            return Ok(new ApiResult() { Data = entidad, OperationCode = HttpStatusCode.OK.GetHashCode() });
+        }
+
     }
 }

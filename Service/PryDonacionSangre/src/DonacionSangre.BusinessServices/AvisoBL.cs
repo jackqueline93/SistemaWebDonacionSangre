@@ -19,6 +19,7 @@ namespace DonacionSangre.BusinessServices
         bool Modificar(int id, AvisoBE entidad);
         bool Eliminar(int id);
         IEnumerable<UsuarioBE> ListarPostulante(int id);
+        IEnumerable<AvisoBE> ListarAvisosPorDonante(int idUsuarioDonante);
     }
     public class AvisoBL : IAvisoBL
     {
@@ -127,5 +128,13 @@ namespace DonacionSangre.BusinessServices
             return Mapper.Map<IEnumerable<usuario>, IEnumerable<UsuarioBE>>(postulante);
         }
 
+        public IEnumerable<AvisoBE> ListarAvisosPorDonante(int idUsuarioDonante)
+        {
+            var entidad = unitOfWork.PostulacionRepository.GetWithInclude(x => x.idUsuarioDonante.Equals(idUsuarioDonante), "aviso").ToList();
+            var avisos = from x in entidad
+                         select x.aviso;
+
+            return Mapper.Map<IEnumerable<aviso>, IEnumerable<AvisoBE>>(avisos);
+        }
     }
 }
