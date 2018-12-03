@@ -4,8 +4,8 @@
       <ng-template matStepLabel>Datos Generales</ng-template>
       <mat-form-field>
         <input matInput placeholder="Nombres" formControlName="nombre" required>
-      </mat-form-field> 
-      <mat-divider></mat-divider>    
+      </mat-form-field>
+      <mat-divider></mat-divider>
       <mat-form-field>
         <input matInput placeholder="Apellidos" formControlName="apellido" required>
       </mat-form-field>
@@ -14,7 +14,7 @@
         <input type="date" matInput placeholder="FechaNacimiento"  formControlName="fecha_nacimiento" required >
       </mat-form-field>
       <mat-divider></mat-divider>
-      <mat-form-field>  
+      <mat-form-field>
             <select matNativeControl    placeholder="Género"  formControlName="genero" required>
                 <option value="F">F</option>
                 <option value="M">M</option>
@@ -88,25 +88,25 @@
             </mat-radio-group>
             <mat-divider></mat-divider>
             <mat-radio-group  formControlName="secondQuestion" required>
-                <p>¿Padece de enfermedades del corazón?</p>
+                <p>¿Tiene usted tatuaje?</p>
               <mat-radio-button value="S">SI</mat-radio-button>
               <mat-radio-button value="N">NO</mat-radio-button>
             </mat-radio-group>
             <mat-divider></mat-divider>
             <mat-radio-group  formControlName="tercerQuestion" required>
-                <p>¿Padece de enfermedades del corazón?</p>
+                <p>¿Ha tenido alguna de estas enfermedades: Hepatitis, tifoidea, TBC y VIH?</p>
               <mat-radio-button value="S">SI</mat-radio-button>
               <mat-radio-button value="N">NO</mat-radio-button>
             </mat-radio-group>
             <mat-divider></mat-divider>
             <mat-radio-group  formControlName="cuartoQuestion" required>
-                <p>¿Padece de enfermedades del corazón?</p>
+                <p>¿En los ultimos 6 meses a donado sangre?</p>
               <mat-radio-button value="S">SI</mat-radio-button>
               <mat-radio-button value="N">NO</mat-radio-button>
             </mat-radio-group>
             <mat-divider></mat-divider>
             <mat-radio-group  formControlName="quintoQuestion" required>
-                <p>¿Padece de enfermedades del corazón?</p>
+                <p>¿Ha tenido alguna ciruguia en los ultimos 6 meses?</p>
               <mat-radio-button value="S">SI</mat-radio-button>
               <mat-radio-button value="N">NO</mat-radio-button>
             </mat-radio-group>
@@ -121,6 +121,6 @@
                         Guardar
                         </button>
               </div>
-       </form>   
+       </form>
   </mat-step>
 </mat-horizontal-stepper>
