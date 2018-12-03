@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/user.model';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/shared/user.service';
+import { FormGroup } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-register-account',
@@ -10,10 +11,7 @@ import { UserService } from 'src/app/shared/user.service';
 })
 export class RegisterAccountComponent implements OnInit  {
   user = new User('','');
-  
-
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-
   constructor(private userService: UserService){
 
   }

@@ -47,7 +47,7 @@
 
       <div class="mat-form">
          <label for="fechaVigencia">Fecha de Vigencia:</label>
-        <input type="date" [ngModel] ="dt | date:'yyyy-MM-dd'" (ngModelChange)="dt = $event" name="FechaVigencia" #FechaVigencia="ngModel" [(ngModel)]="aviso.FechaVigencia"  >
+        <input type="date"  (ngModelChange)="dt = $event" name="FechaVigencia" #FechaVigencia="ngModel" [(ngModel)]="aviso.FechaVigencia"  >
       </div>
 
 

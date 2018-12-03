@@ -80,9 +80,10 @@ export class UserService {
     return this.http.post('/api/avisos', bodyAviso, reqHeader);
   }
 
-  getBuscarAviso(codigo: string): Observable<any>{
+  getBuscarAviso(codigoTipoSangre: string, codigoDepartamneto: string, codigoCiudad: string): Observable<any>{
+ 
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),'Access-Control-Allow-Origin':'*' });
-    return this.http.get('/api/postulaciones'+'/'+codigo.toString(),  { headers: reqHeader });
+    return this.http.get('/api/postulaciones'+'/'+codigoTipoSangre+'/'+codigoDepartamneto+'/'+codigoCiudad,  { headers: reqHeader });
   }
   getDetailAviso(codigo: string): Observable<any>{
     var reqHeader = new HttpHeaders({ 'Authorization': 'Bearer '+localStorage.getItem('api/login'),'Access-Control-Allow-Origin':'*' });
