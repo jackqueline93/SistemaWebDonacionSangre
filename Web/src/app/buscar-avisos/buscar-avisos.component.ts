@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material';
 import { Inject } from '@angular/core';
 import { DetailAvisoComponent } from 'src/app/buscar-avisos/detail-aviso/detail-aviso.component';
-
+import { Departamento } from 'src/app/model/departamento.model';
+import { Ciudad } from 'src/app/model/ciudad.model';
 export interface DialogData {
   animal: string;
   name: string;
@@ -23,18 +24,24 @@ export interface DialogData {
 export class BuscarAvisosComponent implements OnInit {
   [x: string]: any;
   tiposSangre: TipoSangre[];
-  
+  departamentos: Departamento[];
+  ciudades: Ciudad[];
   avisos: Aviso[]=[];
   aviso = new Aviso(0,0,'',0,null,'','','');
   constructor(private userService : UserService,
     private router : Router,public  dialog: MatDialog) { }
-  searchText: string;
+  searchText1: string;
+  searchText2: string;
+  searchText3: string;
 
   ngOnInit() {
     this.tiposSangre=[];
     this.avisos=[];
+    this.ciudades=[];
+    this.departamentos=[];
     this.getTiposSangre();
     this.getMisAvisos();
+    this.getDepartamentos();
   }
 
   getTiposSangre(){
@@ -48,6 +55,35 @@ export class BuscarAvisosComponent implements OnInit {
     });
   }
 
+  getDepartamentos(){
+
+    this.userService.getDepartamentos().subscribe(result => {
+          if(result.OperationCode != 200){
+              console.log(result);
+          }else{  
+            this.departamentos= result;
+          }
+      });
+
+  }
+
+  doCiudad(event){
+
+    this.userService.getCiudades(event.value).subscribe(result => {
+          if(result.OperationCode != 200){
+              console.log(result);
+          }else{  
+            this.ciudades= result;
+
+            localStorage.setItem('codDepartamento', event.value);
+            this.getBuquedaAvanzada(localStorage.getItem('codtiposangre'), localStorage.getItem('codDepartamento'), localStorage.getItem('codCiudad'));
+    
+          }
+    });
+
+
+  }
+
   getMisAvisos(){
     
     this.userService.getAvisos( localStorage.getItem('api/login')).subscribe(result => {
@@ -56,6 +92,8 @@ export class BuscarAvisosComponent implements OnInit {
           }else{
               
             this.avisos= result;
+
+
              
           }
     });
@@ -63,7 +101,7 @@ export class BuscarAvisosComponent implements OnInit {
 }
 
 
-  buscarAviso(IdSangre){
+  /*buscarAviso(IdSangre){
     this.userService.getBuscarAviso(IdSangre).subscribe(result => {
           if(result.OperationCode != 200){
               console.log(result);
@@ -71,15 +109,27 @@ export class BuscarAvisosComponent implements OnInit {
             this.avisos= result;
           }
     });
+  }*/
+  Search(event){
+    localStorage.setItem('codtiposangre',event.value)
+    this.getBuquedaAvanzada(localStorage.getItem('codtiposangre'), localStorage.getItem('codDepartamento'), localStorage.getItem('codCiudad'));
+       
   }
-  Search(){
-    this.userService.getBuscarAviso(this.searchText).subscribe(result => {
+  getBuquedaAvanzada(cod1,cod2,cod3){
+    this.userService.getBuscarAviso(cod1,cod2, cod3).subscribe(result => {
       if(result.OperationCode != 200){
           console.log(result);
       }else{  
        return this.avisos= result;
       }
     });
+
+  }
+
+  SearchCiudad(event){
+    localStorage.setItem('codCiudad',event.value);
+    this.getBuquedaAvanzada(localStorage.getItem('codtiposangre'), localStorage.getItem('codDepartamento'), localStorage.getItem('codCiudad'));
+    
   }
 
   verAviso(idAviso): void {
