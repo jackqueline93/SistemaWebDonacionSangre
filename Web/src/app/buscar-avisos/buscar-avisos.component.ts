@@ -45,11 +45,11 @@ export class BuscarAvisosComponent implements OnInit {
   }
 
   getTiposSangre(){
-      
+
     this.userService.getTiposSangre().subscribe(result => {
           if(result.OperationCode != 200){
               console.log(result);
-          }else{  
+          }else{
             this.tiposSangre= result;
           }
     });
@@ -60,7 +60,7 @@ export class BuscarAvisosComponent implements OnInit {
     this.userService.getDepartamentos().subscribe(result => {
           if(result.OperationCode != 200){
               console.log(result);
-          }else{  
+          }else{
             this.departamentos= result;
           }
       });
@@ -72,12 +72,12 @@ export class BuscarAvisosComponent implements OnInit {
     this.userService.getCiudades(event.value).subscribe(result => {
           if(result.OperationCode != 200){
               console.log(result);
-          }else{  
+          }else{
             this.ciudades= result;
 
             localStorage.setItem('codDepartamento', event.value);
             this.getBuquedaAvanzada(localStorage.getItem('codtiposangre'), localStorage.getItem('codDepartamento'), localStorage.getItem('codCiudad'));
-    
+
           }
     });
 
@@ -85,19 +85,19 @@ export class BuscarAvisosComponent implements OnInit {
   }
 
   getMisAvisos(){
-    
-    this.userService.getAvisos( localStorage.getItem('api/login')).subscribe(result => {
+
+    this.userService.getBuscarAviso('0','0','0').subscribe(result => {
           if(result.OperationCode != 200){
               console.log(result);
           }else{
-              
+
             this.avisos= result;
 
 
-             
+
           }
     });
-  
+
 }
 
 
@@ -105,7 +105,7 @@ export class BuscarAvisosComponent implements OnInit {
     this.userService.getBuscarAviso(IdSangre).subscribe(result => {
           if(result.OperationCode != 200){
               console.log(result);
-          }else{  
+          }else{
             this.avisos= result;
           }
     });
@@ -113,13 +113,13 @@ export class BuscarAvisosComponent implements OnInit {
   Search(event){
     localStorage.setItem('codtiposangre',event.value)
     this.getBuquedaAvanzada(localStorage.getItem('codtiposangre'), localStorage.getItem('codDepartamento'), localStorage.getItem('codCiudad'));
-       
+
   }
   getBuquedaAvanzada(cod1,cod2,cod3){
     this.userService.getBuscarAviso(cod1,cod2, cod3).subscribe(result => {
       if(result.OperationCode != 200){
           console.log(result);
-      }else{  
+      }else{
        return this.avisos= result;
       }
     });
@@ -129,7 +129,7 @@ export class BuscarAvisosComponent implements OnInit {
   SearchCiudad(event){
     localStorage.setItem('codCiudad',event.value);
     this.getBuquedaAvanzada(localStorage.getItem('codtiposangre'), localStorage.getItem('codDepartamento'), localStorage.getItem('codCiudad'));
-    
+
   }
 
   verAviso(idAviso): void {
@@ -141,15 +141,15 @@ export class BuscarAvisosComponent implements OnInit {
     this.userService.getDetailAviso(idAviso).subscribe(result => {
       if(result.OperationCode != 200){
           console.log(result);
-      }else{  
+      }else{
         const dialogRef = this.dialog.open(DetailAvisoComponent, {
           width: '250px',
           data: result
         });
-    
+
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
-        
+
         });
       }
     });

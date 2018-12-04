@@ -21,7 +21,8 @@ namespace DonacionSangre.Rest.Controllers
         [Route("{idTipoSangre?}/{idDepartamento?}/{idCiudad?}")]
         public IHttpActionResult BuscarAviso(int idTipoSangre = 0, int idDepartamento = 0, int idCiudad = 0)
         {
-            var lista = postulacionBL.BuscarAviso(idTipoSangre, idDepartamento, idCiudad);
+            var IdUsuario = GetIdUser();
+            var lista = postulacionBL.BuscarAviso(idTipoSangre, idDepartamento, idCiudad, IdUsuario);
             return Ok(new ApiResult() { Data = lista, OperationCode = HttpStatusCode.OK.GetHashCode() });
         }
 

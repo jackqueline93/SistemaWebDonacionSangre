@@ -8,6 +8,7 @@ using DonacionSangre.Infrastructure.Core.Function;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DonacionSangre.BusinessServices
 {
@@ -136,5 +137,31 @@ namespace DonacionSangre.BusinessServices
 
             return Mapper.Map<IEnumerable<aviso>, IEnumerable<AvisoBE>>(avisos);
         }
+
+       /* public void EnviarCorreoPostulantes(int idAviso, string mensaje)
+        {
+            var entidad = unitOfWork.PostulacionRepository.GetWithInclude(x => x.idAviso.Equals(id), "usuario").ToList();
+            var postulante = from x in entidad
+                             select x.usuario;
+
+            foreach (var item in postulante)
+            {
+                EnviarCorreoSolicitante(item.correo, mensaje);
+            }
+        }
+        
+        private void EnviarCorreoSolicitante(string correoDonante, string mensaje)
+        {
+            try
+            {
+
+                ComunUtil.SendMail(correoDonante, "", "Información de la reunión del aviso", mensaje.ToString());
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Error(ex.Message, ex);
+            }
+        }*/
+
     }
 }

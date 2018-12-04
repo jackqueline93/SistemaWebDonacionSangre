@@ -14,7 +14,7 @@ namespace DonacionSangre.BusinessServices
 {
     public interface IPostulacionBL
     {
-        IEnumerable<AvisoBE> BuscarAviso(int idTipoSangre, int idDepartamento, int idCiudad);
+        IEnumerable<AvisoBE> BuscarAviso(int idTipoSangre, int idDepartamento, int idCiudad, int IdUsuario);
         int Registrar(PostulacionBE entidad);
     }
 
@@ -27,7 +27,7 @@ namespace DonacionSangre.BusinessServices
             unitOfWork = new UnitOfWork();
         }
 
-        public IEnumerable<AvisoBE> BuscarAviso(int idTipoSangre, int idDepartamento, int idCiudad)
+        public IEnumerable<AvisoBE> BuscarAviso(int idTipoSangre, int idDepartamento, int idCiudad, int IdUsuario)
         {
             var lista = unitOfWork.AvisoRepository.GetWithInclude(x => (x.idSangre.Equals(idTipoSangre) || idTipoSangre.Equals(0))
                                                                     && (x.idDepartamento.Equals(idDepartamento) || idDepartamento.Equals(0))
@@ -38,6 +38,7 @@ namespace DonacionSangre.BusinessServices
 
             var filtro = lista.Where(x => x.fechaVigencia >= DateTime.Now.Date
                                     //&& (x.nombre.ToUpper().Contains(nombre?.ToUpper()) || string.IsNullOrEmpty(nombre))
+                                           && x.idUsuarioSolicitante != IdUsuario
                                     )?.OrderByDescending(x => x.fechaVigencia);
             return Mapper.Map<IEnumerable<aviso>, IEnumerable<AvisoBE>>(filtro);
         }
